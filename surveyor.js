@@ -6,7 +6,7 @@
 var viewportWidth = viewport().width,
 		viewportHeight = viewport().height,
 		scaleFactor = viewportWidth / 2000,
-		START_TIME = new Date().getTime(),
+		START_TIME = Date.now(),
 		timeElapsed = 0,
 		DIR = "assets/",
 		documentStrip2 = document.getElementById("strip1"),
@@ -33,7 +33,10 @@ function Strip1() {
 			FFLY_MAX_SIZE = 140,
 			FFLY_MIN_SIZE = 60,
 			followers = 0,
-			starsImg = new Image();
+			SKY_GRADIENT = ctx.createLinearGradient(0, 0, 0, viewportHeight);
+	SKY_GRADIENT.addColorStop(0, "transparent");
+	SKY_GRADIENT.addColorStop(1, "rgba(203, 170, 237, 0.8)");
+	var starsImg = new Image();
 	starsImg.src = DIR + "stars.gif";
 	var starsRotation = 0,
 			STARS_ROTATION_SPEED = 0.0002,
@@ -103,12 +106,8 @@ function Strip1() {
 			for (i = 0; i < len; i++)
 				this.renderSprite(bgSprites[i]);
 
-			ctx.save();
 			ctx.globalCompositeOperation = "destination-over";
-			var skyGradient = ctx.createLinearGradient(0, 0, 0, viewportHeight);
-			skyGradient.addColorStop(0, "transparent");
-			skyGradient.addColorStop(1, "rgba(203, 170, 237, 0.8)");
-			ctx.fillStyle = skyGradient;
+			ctx.fillStyle = SKY_GRADIENT;
 			ctx.fillRect(0, 0, viewportWidth, viewportHeight);
 
 			ctx.translate(viewportWidth / 2, viewportHeight / 2);
@@ -116,7 +115,8 @@ function Strip1() {
 			ctx.drawImage(starsImg, -viewportWidth * 1.5, -viewportHeight * 1.5,
 										viewportWidth * 3, viewportHeight * 3);
 			starsRotation += STARS_ROTATION_SPEED;
-			ctx.restore();
+
+			ctx.setTransform(1, 0, 0, 1, 0, 0);
 
 			followers = 0;
 			len = fireflies.length;
@@ -149,7 +149,6 @@ function Strip1() {
 
 	/** Renders you, the lead firefly. */
 	this.renderSelf = function() {
-		ctx.save();
 		var fireflyImg = ctx.createRadialGradient(x, y, 0, x, y, selfSize / 2);
 		fireflyImg.addColorStop(0, "rgb(204, 204, 160)");
 		fireflyImg.addColorStop(0.1, "rgba(77, 77, 68, 0.5)");
@@ -158,7 +157,20 @@ function Strip1() {
 		ctx.globalCompositeOperation = "screen";
 		ctx.fillStyle = fireflyImg;
 		ctx.fillRect(x - selfSize / 2, y - selfSize / 2, selfSize, selfSize);
-		ctx.restore();
+	};
+
+	/** Renders a firefly onto the canvas. */
+	this.renderFirefly = function(ffly) {
+		var fireflyImg =
+				ctx.createRadialGradient(ffly.x, ffly.y, 0, ffly.x, ffly.y, ffly.size/2);
+		fireflyImg.addColorStop(0, "rgb(153, 153, 153)");
+		fireflyImg.addColorStop(0.1, "rgba(61, 61, 61, 0.5)");
+		fireflyImg.addColorStop(0.33, "rgba(40, 40, 40, 0.3)");
+		fireflyImg.addColorStop(1, "transparent");
+		ctx.globalCompositeOperation = "screen";
+		ctx.fillStyle = fireflyImg;
+		ctx.fillRect(ffly.x - ffly.size/2, ffly.y - ffly.size/2,
+								 ffly.size, ffly.size);
 	};
 
 	/** Ticks you, the lead firefly. */
@@ -175,22 +187,6 @@ function Strip1() {
 		if (selfSize > SELF_MAX_SIZE || selfSize < SELF_MIN_SIZE)
 			dSelfSize *= -1;
 		selfSize += dSelfSize;
-	};
-
-	/** Renders a firefly onto the canvas. */
-	this.renderFirefly = function(ffly) {
-		ctx.save();
-		var fireflyImg =
-				ctx.createRadialGradient(ffly.x, ffly.y, 0, ffly.x, ffly.y, ffly.size/2);
-		fireflyImg.addColorStop(0, "rgb(153, 153, 153)");
-		fireflyImg.addColorStop(0.1, "rgba(61, 61, 61, 0.5)");
-		fireflyImg.addColorStop(0.33, "rgba(40, 40, 40, 0.3)");
-		fireflyImg.addColorStop(1, "transparent");
-		ctx.globalCompositeOperation = "screen";
-		ctx.fillStyle = fireflyImg;
-		ctx.fillRect(ffly.x - ffly.size/2, ffly.y - ffly.size/2,
-								 ffly.size, ffly.size);
-		ctx.restore();
 	};
 
 	/** Calculates next position of an npc firefly. */
@@ -237,9 +233,8 @@ function Strip1() {
 
 	/** Renders an sprite onto the canvas. */
 	this.renderSprite = function(spr) {
+		ctx.scale(scaleFactor, scaleFactor);
 		if (spr.img !== undefined) {
-			ctx.save();
-			ctx.scale(scaleFactor, scaleFactor);
 			if (spr.shadow !== undefined) { //TODO
 				ctx.globalCompositeOperation = "source-atop";
 				ctx.drawImage(spr.img, 2000 - spr.img.width - spr.x,
@@ -252,17 +247,16 @@ function Strip1() {
 				ctx.drawImage(spr.img, 2000 - spr.img.width - spr.x,
 											2000*viewportHeight/viewportWidth - spr.img.height - spr.y);
 			}
-			ctx.restore();
 		} else if (spr.frames !== undefined) {
-			ctx.save();
-			ctx.scale(scaleFactor, scaleFactor);
 			ctx.globalCompositeOperation = spr.blendmode;
 			var img = spr.getFrame(timeElapsed).img;
 			ctx.drawImage(img, 2000 - img.width - spr.x,
 										2000*viewportHeight/viewportWidth - img.height - spr.y);
-			ctx.restore();
-		} else
+		} else {
+			ctx.scale(1 / scaleFactor, 1 / scaleFactor);
 			throw new TypeError("A sprite in the scene must be regular, lighted, or animated.");
+		}
+		ctx.scale(1 / scaleFactor, 1 / scaleFactor);
 	};
 
 	/** Updates the mouse coordinates	*/
@@ -276,8 +270,6 @@ function Strip1() {
 			mouseY = e.clientY +
 				document.body.scrollTop + document.documentElement.scrollTop;
 		}
-		mouseX -= canvas.offsetLeft;
-		mouseY -= canvas.offsetTop;
 	};
 
 	/** Handles window resizing (and basically anything else which requires
@@ -364,12 +356,11 @@ function Strip2() {
 				document.body.scrollTop + document.documentElement.scrollTop;
 		}
 		mouseX -= canvas.offsetLeft;
-		mouseY -= canvas.offsetTop;
-		console.log(mouseX + " " + mouseY);
-		if (strip2.checkClicked(mouseX, mouseY) !== false)
-			document.style.cursor = "pointer";
-		else
-			document.style.cursor = "default";
+		mouseY -= viewportHeight;
+		if (strip2.checkClicked(mouseX, mouseY) !== false) {
+			document.body.style.cursor = "pointer";
+		} else
+			document.body.style.cursor = "default";
 	};
 
 	/** Handles clicks on the canvas. */
@@ -733,7 +724,7 @@ window.addEventListener("resize", forceRedraw, false);
 function tickAll() {
 	setTimeout(function() {
 		window.requestAnimFrame(tickAll);
-		timeElapsed = new Date().getTime() - START_TIME;
+		timeElapsed = Date.now() - START_TIME;
 		strip1.tick();
 		strip2.tick();
 		strip3.tick();
@@ -844,4 +835,3 @@ CanvasRenderingContext2D.drawImg = function(img, x, y, anchorX, anchorY) {
 
 	CanvasRenderingContext2D.drawImage(img, imgX, imgY);
 };
-

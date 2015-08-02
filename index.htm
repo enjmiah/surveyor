@@ -1,258 +1,274 @@
 <html>
 
 <head>
-	<meta charset="UTF-8">
+  <meta charset="UTF-8">
 
-	<title>SURVEYOR</title>
+  <title>SURVEYOR</title>
 
-	<link href='http://fonts.googleapis.com/css?family=Raleway:100'
-				rel='stylesheet' type='text/css'>
-	<link href='http://fonts.googleapis.com/css?family=Raleway:300'
-				rel='stylesheet' type='text/css'>
-	<link href='http://fonts.googleapis.com/css?family=Raleway:500'
-				rel='stylesheet' type='text/css'>
+  <link href='http://fonts.googleapis.com/css?family=Raleway:100'
+        rel='stylesheet' type='text/css'>
+  <link href='http://fonts.googleapis.com/css?family=Raleway:300'
+        rel='stylesheet' type='text/css'>
+  <link href='http://fonts.googleapis.com/css?family=Raleway:500'
+        rel='stylesheet' type='text/css'>
 
-	<script type="text/javascript"
-					src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js">
-	</script>
-	<script>
-		$(function() {
-			$('a[href*=#]:not([href=#])').click(function() {
-				var target = $(this.hash);
-				target = target.length ? target : $('[name=' + this.hash.slice(1) +']');
-				if (target.length) {
-					$('html,body').animate({
-						scrollTop: target.offset().top
-					}, 300);
-					return false;
-				}
-			});
-		});
-	</script>
+  <script type="text/javascript"
+          src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js">
+  </script>
+  <script>
+    $(function() {
+      $('a[href*=#]:not([href=#])').click(function() {
+        var target = $(this.hash);
+        target = target.length ? target : $('[name=' + this.hash.slice(1) +']');
+        if (target.length) {
+          $('html,body').animate({
+            scrollTop: target.offset().top
+          }, 300);
+          return false;
+        }
+      });
+    });
+  </script>
 
-	<style>
-		html {
-			margin: 0px;
-			background-color: black;
-		}
+  <style>
+    html {
+      margin: 0px;
+      background-color: black;
+    }
 
-		body {
-			font-family: Raleway, "Helvetica Neue", Helvetica, Arial, sans-serif;
-			font-weight: 100;
-			font-size: 0.93em;
-			width: 100%;
-			color: rgb(255,255,255);
-			margin: 0px;
-			text-align: center;
-			min-width: 600px;
-		}
+    body {
+      font-family: Raleway, "Helvetica Neue", Helvetica, Arial, sans-serif;
+      font-weight: 100;
+      font-size: 0.93em;
+      width: 100%;
+      color: rgb(255,255,255);
+      margin: 0px;
+      text-align: center;
+      min-width: 600px;
+    }
 
-		div {
-			margin: 0px auto;
-		}
+    div {
+      margin: 0px auto;
+    }
 
-		.strip {
-			position: relative;
-			display: block;
-			height: 100%;
-			min-height: 400px;
-			width: 100%;
-			z-index: 1;
-		}
+    .strip {
+      position: relative;
+      display: block;
+      height: 100%;
+      min-height: 400px;
+      width: 100%;
+      z-index: 1;
+    }
 
-		canvas {
-			position: absolute;
-			left: 0%;
-			top: 0%;
-			z-index: -1;
-		}
+    canvas {
+      position: absolute;
+      left: 0%;
+      top: 0%;
+      z-index: -1;
+    }
 
-		.largetxt {
-			z-index: 3;
-			width: 75%;
-			padding-top: 20%;
+    .largetxt {
+      z-index: 3;
+      width: 75%;
+      padding-top: 1%;
 
-			font-size: 3em;
-			letter-spacing: -2px;
-		}
+      font-size: 3em;
+      letter-spacing: -2px;
+    }
 
-		.smalltxt {
-			z-index: 3;
-			width: 75%;
-			padding-top: 23%;
+    .smalltxt {
+      z-index: 3;
+      width: 75%;
+      padding-top: 3%;
 
-			font-size: 0.9em;
-			font-weight: 300;
-			opacity: 0.75;
-			letter-spacing: 6px;
-		}
+      font-size: 0.9em;
+      font-weight: 300;
+      opacity: 0.75;
+      letter-spacing: 6px;
+    }
 
-		.dialog {
-			font-size: 1.3em;
-			font-family: "Courier New", monospace;
-			letter-spacing: 0px;
-			color: #bbb;
+    .padding {
+      padding-top: 20%;
+    }
 
-			background-color: rgba(10, 10, 10, 0.3);
-			padding: 40px;
-			width: 70%;
-			display: none;
-		}
+    .dialog {
+      font-size: 1.3em;
+      font-family: "Courier New", monospace;
+      letter-spacing: 0px;
+      color: #bbb;
 
-		.nav {
-			display: block;
-			width: 120px;
-			z-index: 3;
-			opacity: 0.8;
-			padding: 40px;
-		}
+      background-color: rgba(10, 10, 10, 0.3);
+      padding: 35px;
+      width: 66%;
+      display: none;
+    }
 
-		.nav a:link, .nav a:visited {
-			color: #fff;
-			background-color: rgba(255, 255, 255, 0.15);
-			text-decoration: none;
-			display: inline-block;
-			padding: 4px;
-			margin: 3px;
-			line-height: 25.5px;
-			width: 30px;
-			height: 30px;
-			font-size: 25px;
-			text-align: center;
-		}
+    .dialog a {
+      color: #c67557;
+      cursor: pointer;
+    }
 
-		.nav a:hover {
-			background-color: rgba(255, 255, 255, 0.2);
-		}
+    .nav {
+      display: block;
+      width: 120px;
+      z-index: 3;
+      opacity: 0.8;
+      padding: 40px;
+    }
 
-		#strip1 {
-			background-color: #4b3f5f;
-		}
+    .nav a:link, .nav a:visited {
+      color: #fff;
+      background-color: rgba(255, 255, 255, 0.15);
+      text-decoration: none;
+      display: inline-block;
+      padding: 4px;
+      margin: 3px;
+      line-height: 25.5px;
+      width: 30px;
+      height: 30px;
+      font-size: 25px;
+      text-align: center;
+    }
 
-		#strip2 {
-			background-color: #1c5c57;
-		}
+    .nav a:hover {
+      background-color: rgba(255, 255, 255, 0.2);
+    }
 
-		#strip3 {
-			background-color: #6f4725;
-		}
+    #strip1 {
+      background-color: #4b3f5f;
+    }
 
-		#strip4 {
-			background-color: #0d0907;
-		}
+    #strip2 {
+      background-color: #1c5c57;
+    }
 
-		#title {
-			box-sizing: border-box;
-				-webkit-box-sizing: border-box;
-				-moz-box-sizing: border-box;
-			display: block;
-			height: 180px;
-			width: 100%;
-			padding: 50px;
-			background-color: #dcdbda;
+    #strip3 {
+      background-color: #6f4725;
+    }
 
-			color: #111;
-			font-weight: 500;
-			font-size: 0.93em;
-			line-height: 170%;
-		}
-	</style>
+    #strip4 {
+      background-color: #0d0907;
+    }
+
+    #title {
+      box-sizing: border-box;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+      display: block;
+      height: 180px;
+      width: 100%;
+      padding: 50px;
+      background-color: #dcdbda;
+
+      color: #111;
+      font-weight: 500;
+      font-size: 0.93em;
+      line-height: 170%;
+    }
+  </style>
 
 </head>
 
 <body>
 
-	<a name="1">
-	<div class="strip" id="strip1">
-		<canvas id="strip1-fg" width="100" height="100">
-			This page will not work properly as your browser does not support HTML5 Canvas.
-		</canvas>
+  <a name="1"></a>
+  <div class="strip" id="strip1">
+    <canvas id="strip1-fg" width="100" height="100">
+      This page will not work properly as your browser does not support HTML5 Canvas.
+    </canvas>
 
-		<div class="smalltxt">
-			<div id="strip1-text">( Use your mouse to interact with objects. )</div>
-		</div>
+    <div class="padding" style="padding-top: 24%;"></div>
 
-		<div class="dialog" id="dialog1-1">
-			You form a ring. You should use your combined light to explore the darkness.
-		</div>
+    <div class="dialog" id="dialog1-1">
+      You form a ring. You should use your combined light to explore the darkness.
+    </div>
 
-		<div class="nav">
-			<a href="#2">&gt;</a>
-		</div>
-	</div>
-	</a>
+    <div class="smalltxt">
+      <div id="strip1-text">( Use your mouse to interact with objects. )</div>
+    </div>
 
-	<a name="2">
-	<div class="strip" id="strip2">
-		<canvas id="strip2-fg" width="100" height="100">
-			This page will not work properly as your browser does not support HTML5 Canvas.
-		</canvas>
+    <div class="nav">
+      <a href="#2">&gt;</a>
+    </div>
+  </div>
 
-		<div class="largetxt">
-			<div id="strip2-text">NOW I'LL NEVER REMEMBER WHAT IT WAS</div>
-		</div>
+  <a name="2"></a>
+  <div class="strip" id="strip2">
+    <canvas id="strip2-fg" width="100" height="100">
+      This page will not work properly as your browser does not support HTML5 Canvas.
+    </canvas>
 
-		<div class="dialog" id="dialog2-1">
-			Hello.
-		</div>
+    <div class="padding"></div>
 
-		<div class="nav">
-			<a href="#1">&lt;</a>
-			<a href="#3">&gt;</a>
-		</div>
-	</div>
-	</a>
+    <div class="dialog" id="dialog2-1">
+      Hello.<br>
+      <br>
+      <a>LOOK</a> | <a>TAKE</a>
+    </div>
 
-	<a name="3">
-	<div class="strip" id="strip3">
-		<canvas id="strip3-fg" width="100" height="100">
-			This page will not work properly as your browser does not support HTML5 Canvas.
-		</canvas>
+    <div id="strip2-text">
+      <div class="largetxt">NOW I'LL NEVER REMEMBER WHAT IT WAS</div>
+      <div class="smalltxt">( Click on objects to inspect them. )</div>
+    </div>
 
-		<div class="largetxt">
-			WE CARRIED LIFE AND SET IT DOWN THE WAY THOSE ANTS CARRIED EGGS
-		</div>
+    <div class="nav">
+      <a href="#1">&lt;</a>
+      <a href="#3">&gt;</a>
+    </div>
+  </div>
 
-		<div class="nav">
-			<a href="#2">&lt;</a>
-			<a href="#4">&gt;</a>
-		</div>
-	</div>
-	</a>
+  <a name="3"></a>
+  <div class="strip" id="strip3">
+    <canvas id="strip3-fg" width="100" height="100">
+      This page will not work properly as your browser does not support HTML5 Canvas.
+    </canvas>
 
-	<a name="4">
-	<div class="strip" id="strip4">
-		<div class="largetxt">
-			COMING<br>
-			SOON.<br>
-			<br>
-			AUGUST 2015<br>
-		</div>
+    <div class="padding"></div>
 
-		<div class="nav">
-			<a href="#3">&lt;</a>&#8203;
-		</div>
+    <div class="largetxt">
+      WE CARRIED LIFE AND SET IT DOWN THE WAY THOSE ANTS CARRIED EGGS
+    </div>
 
-		<canvas id="strip4-fg" width="100" height="100">
-			This page will not work properly as your browser does not support HTML5 Canvas.
-		</canvas>
-	</div>
-	</a>
+    <div class="nav">
+      <a href="#2">&lt;</a>
+      <a href="#4">&gt;</a>
+    </div>
+  </div>
 
-	<div id="title">
-		<div>
-			<strong>Surveyor Pilot</strong><br>
-			<em>2015</em><br>
-			<br>
-			<span style="font-size: 0.9em;">
-				<a href="#" onClick='window.location="view-source:" + window.location.href'>View Page Source</a>&nbsp; &bull;&nbsp;
-				<a href="view-source:surveyor.js">View JS</a>&nbsp; &bull;&nbsp;
-				<a href="https://github.com/enjmiah/surveyor">GitHub</a>
-			</span>
-		</div>
-	</div>
+  <a name="4"></a>
+  <div class="strip" id="strip4">
+    <canvas id="strip4-fg" width="100" height="100">
+      This page will not work properly as your browser does not support HTML5 Canvas.
+    </canvas>
 
-	<script type="text/javascript" src="surveyor.js"></script>
+    <div class="padding"></div>
+
+    <div class="largetxt">
+      COMING<br>
+      SOON.<br>
+      <br>
+      AUGUST 2015<br>
+    </div>
+
+    <div class="nav">
+      <a href="#3">&lt;</a>&#8203;
+    </div>
+  </div>
+
+  <div id="title">
+    <div>
+      <strong>Surveyor Pilot</strong><br>
+      <em>2015</em><br>
+      <br>
+      <span style="font-size: 0.9em;">
+        <a href="#" onClick='window.location="view-source:" + window.location.href'>View Page Source</a>&nbsp; &bull;&nbsp;
+        <a href="view-source:surveyor.js">View JS</a>&nbsp; &bull;&nbsp;
+        <a href="https://github.com/enjmiah/surveyor">GitHub</a>
+      </span>
+    </div>
+  </div>
+
+  <script type="text/javascript" src="surveyor.js"></script>
 </body>
 
 </html>

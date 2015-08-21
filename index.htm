@@ -67,16 +67,28 @@
       z-index: -1;
     }
 
+    .overlay {
+      position: absolute;
+      left: 0;
+      top: 0;
+      height: 100%;
+      width: 100%;
+      z-index: 0;
+    }
+
     .largetxt {
-      z-index: 3;
+      position: relative;
+      z-index: 4;
       width: 75%;
       padding-top: 1%;
 
       font-size: 3em;
       letter-spacing: -2px;
+      opacity: 1;
     }
 
     .smalltxt {
+      position: relative;
       z-index: 3;
       width: 75%;
       padding-top: 3%;
@@ -100,12 +112,19 @@
       background-color: rgba(10, 10, 10, 0.3);
       padding: 35px;
       width: 66%;
+      position: relative;
+      z-index: 5;
       display: none;
     }
 
     .dialog a {
       color: #c67557;
       cursor: pointer;
+    }
+    
+    .dialog .left {
+      display: block;
+      text-align: left;
     }
 
     .nav {
@@ -139,7 +158,13 @@
     }
 
     #strip2 {
-      background-color: #1c5c57;
+      background-color: #606f7a;
+    }
+
+    #overlay2 {
+      /*opacity: 0.7;
+      background-color: #020204;
+      mix-blend-mode: multiply;*/
     }
 
     #strip3 {
@@ -177,6 +202,8 @@
       This page will not work properly as your browser does not support HTML5 Canvas.
     </canvas>
 
+    <div class="overlay" id="overlay1"></div>
+
     <div class="padding" style="padding-top: 24%;"></div>
 
     <div class="dialog" id="dialog1-1">
@@ -198,6 +225,8 @@
       This page will not work properly as your browser does not support HTML5 Canvas.
     </canvas>
 
+    <div class="overlay" id="overlay2"></div>
+
     <div class="padding"></div>
 
     <div class="dialog" id="dialog2-1">
@@ -205,9 +234,37 @@
       <br>
       <a>LOOK</a> | <a>TAKE</a>
     </div>
+    
+    <div class="dialog" id="radio">
+      It's an old radio.<br>
+      <br>
+      <a onClick="displayDialog(2, 'radio-look')">LOOK</a> |
+      <a onClick="displayDialog(2, 'radio-listen')">LISTEN</a> |
+      <a onClick="displayDialog(2, 'radio-take')">TAKE</a>
+    </div>
+    
+    <div class="dialog" id="radio-look">
+      It's an old radio.<br>
+      <br>
+      <a class="close" onClick="restoreDialog(2)">- X -</a>
+    </div>
+    
+    <div class="dialog" id="radio-listen">
+      Something familiar seems to be playing. It reminds you of something...<br>
+      <br>
+      <a class="left">> It reminds you of college.</a>
+      <a class="left">> It reminds you of horses.</a>
+      <a class="left" onClick="restoreDialog(2)">> Nevermind.</a>
+    </div>
+    
+    <div class="dialog" id="radio-take">
+      No need. It's already yours.<br>
+      <br>
+      <a class="close" onClick="restoreDialog(2)">- X -</a>
+    </div>
 
     <div id="strip2-text">
-      <div class="largetxt">NOW I'LL NEVER REMEMBER WHAT IT WAS</div>
+      <div class="largetxt">BLAH BLAH WORDS</div>
       <div class="smalltxt">( Click on objects to inspect them. )</div>
     </div>
 
@@ -222,6 +279,8 @@
     <canvas id="strip3-fg" width="100" height="100">
       This page will not work properly as your browser does not support HTML5 Canvas.
     </canvas>
+
+    <div class="overlay" id="overlay1"></div>
 
     <div class="padding"></div>
 
@@ -240,6 +299,8 @@
     <canvas id="strip4-fg" width="100" height="100">
       This page will not work properly as your browser does not support HTML5 Canvas.
     </canvas>
+
+    <div class="overlay" id="overlay1"></div>
 
     <div class="padding"></div>
 

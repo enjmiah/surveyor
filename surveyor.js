@@ -139,7 +139,7 @@ function Strip1() {
       if (followers === 6) {
         if (!dialogDisplayed) {
           dialogDisplayed = true;
-          dialogManager.displayDialog(1, 1);
+          dialogManager.displayDialog(1, "dialog1-1");
         }
       } else if (dialogDisplayed) {
         dialogDisplayed = false;
@@ -303,14 +303,14 @@ function Strip2() {
       mouseY = viewportHeight / 2,
       x = mouseX,
       y = mouseY,
-      sprites = [new Sprite(0.5, 0.5, {imgSrc: DIR + "2mountains.png", depth: 10000}),
-                 new Sprite(0.5, 0.5, {imgSrc: DIR + "2trees2.png", depth: 150}),
-                 new Sprite(0.5, 0.5, {imgSrc: DIR + "2trees1.png", depth: 90}),
-                 new Sprite(0.5, 0.5, {imgSrc: DIR + "2bank.png", depth: 80}),
-                 new Sprite(0.5, 0.5, {imgSrc: DIR + "2onbank.png", depth: 80}),
-                 new Sprite(0.3, 0.78, {imgSrc: DIR + "2radio.png", depth: 80,
+      sprites = [new Sprite("0.5", "0.5", {imgSrc: DIR + "2mountains.png", depth: 10000}),
+                 new Sprite("0.5", "0.5", {imgSrc: DIR + "2trees2.png", depth: 150}),
+                 new Sprite("0.5", "0.5", {imgSrc: DIR + "2trees1.png", depth: 90}),
+                 new Sprite("0.5", "0.5", {imgSrc: DIR + "2bank.png", depth: 80}),
+                 new Sprite("0.5", "0.5", {imgSrc: DIR + "2onbank.png", depth: 80}),
+                 new Sprite(822, "0.78", {imgSrc: DIR + "2radio.png", depth: 80,
                                       name: "radio"}),
-                new Sprite(0.5, 0.5, {imgSrc: DIR + "2overhang.png", depth: 5})],
+                 new Sprite("0.5", "0.5", {imgSrc: DIR + "2overhang.png", depth: 5})],
       interactiveSpriteIndices = [5];
 
   /** Ticks everything. */
@@ -347,13 +347,29 @@ function Strip2() {
     }
 
     if (spr.depth !== undefined) {
+      var imgX = (typeof spr.x === "string" ? 
+                  parseFloat(spr.x) * viewportWidth :
+                  viewportWidth / 2 + (spr.x - 1250) * hScaleFactor),
+          imgY = (typeof spr.y === "string" ?
+                  parseFloat(spr.y) * viewportHeight :
+                  spr.y * hScaleFactor);
+      /*
+      if (typeof spr.x === "string") {
+        imgX = parseFloat(spr.x) * viewportWidth;
+      } else {
+        imgX = viewportWidth / 2 + (spr.x - 1250) * hScaleFactor;
+      }
+      if (typeof spr.y === "string") {
+        imgY = parseFloat(spr.y) * viewportHeight;
+      } else {
+        imgY = spr.y * viewportHeight / 1000;
+      }*/
+      
       ctx.drawImage(img,
-                    Math.round((spr.x * viewportWidth +
-                                800 * (viewportWidth/2 - x) /
-                                (spr.depth * viewportWidth)) /
+                    Math.round((imgX + 800 * (viewportWidth/2 - x) /
+                               (spr.depth * viewportWidth)) /
                                hScaleFactor - img.width / 2),
-                    Math.round(spr.y * viewportHeight /
-                               hScaleFactor - img.height / 2));
+                    Math.round(imgY / hScaleFactor - img.height / 2));
     } else {
       ctx.scale(1 / hScaleFactor, 1 / hScaleFactor);
       throw new TypeError("Sprite must have parallax fields be defined.");
@@ -387,7 +403,7 @@ function Strip2() {
         clickY = e.pageY - viewportHeight,
         i;
     console.log("click@ " + clickX + ", " + clickY);
-    if (strip2.checkClicked(clickX, clickY) !== null) {
+    if (strip2.checkClicked(clickX, clickY) === "radio") {
       dialogManager.displayDialog(2, "radio");
     }
   };
@@ -396,12 +412,18 @@ function Strip2() {
   * Returns name of element hit if the element has a name, otherwise returns null. */
   this.checkClicked = function(x, y) {
     for (i = 0; i < interactiveSpriteIndices.length; i++) {
-      var spr = sprites[interactiveSpriteIndices[i]];
-
+      var spr = sprites[interactiveSpriteIndices[i]],
+          imgX = (typeof spr.x === "string" ? 
+                  parseFloat(spr.x) * viewportWidth :
+                  viewportWidth / 2 + (spr.x - 1250) * hScaleFactor),
+          imgY = (typeof spr.y === "string" ?
+                  parseFloat(spr.y) * viewportHeight :
+                  spr.y * hScaleFactor);
+      
       if (spr.name !== undefined && spr.img !== undefined &&
-          x > (spr.x * viewportWidth + 800 * (viewportWidth/2 - x) /
+          x > (imgX + 800 * (viewportWidth/2 - x) /
                (spr.depth * viewportWidth)) - spr.img.width * hScaleFactor / 2 &&
-          x < (spr.x * viewportWidth + 800 * (viewportWidth/2 - x) /
+          x < (imgX + 800 * (viewportWidth/2 - x) /
                (spr.depth * viewportWidth)) + spr.img.width * hScaleFactor / 2 &&
           y > spr.y * viewportHeight - spr.img.height * hScaleFactor / 2 &&
           y < spr.y * viewportHeight + spr.img.height * hScaleFactor / 2) {
@@ -567,6 +589,7 @@ function DialogManager() {
   var SHOW_ANIM_DURATION = 150,
       HIDE_ANIM_DURATION = 200,
       SHOW_TEXT_ANIM_DURATION = 1500,
+      animQueue = $({}),
       history = {},
       stripStates = {};
   stripStates[1] = false;
@@ -594,9 +617,9 @@ function DialogManager() {
   this.displayDialog = function(strip, id) {
     this.hideDialog(strip);
     
-    setTimeout(function() {
-      $("#" + id).stop(true, true).slideDown(SHOW_ANIM_DURATION);
-    }, HIDE_ANIM_DURATION);
+    animQueue.finish().queue("fx", function() {
+      $("#" + id).slideDown(SHOW_ANIM_DURATION).dequeue();
+    });
     stripStates[strip] = id;
   };
 
@@ -607,9 +630,13 @@ function DialogManager() {
   this.hideDialog = function(strip) {
     var state = stripStates[strip];
     if (state !== false) {
-      $("#" + state).stop(true, true).fadeOut(200);
+      animQueue.finish().queue("fx", function() {
+        $("#" + state).fadeOut(HIDE_ANIM_DURATION).dequeue();
+      });
     } else {
-      $("#strip" + strip + "-text").stop(true, true).fadeOut(HIDE_ANIM_DURATION);
+      animQueue.finish().queue("fx", function() {
+        $("#strip" + strip + "-text").fadeOut(HIDE_ANIM_DURATION).dequeue();
+      });
     }
   };
 
@@ -619,18 +646,40 @@ function DialogManager() {
   */
   this.restoreDialog = function(strip) {
     this.hideDialog(strip);
-    setTimeout(function() {
-      $("#strip" + strip + "-text").stop(true, true).fadeIn(SHOW_TEXT_ANIM_DURATION);
-    }, HIDE_ANIM_DURATION);
+    animQueue.finish().queue("fx", function() {
+      $("#strip" + strip + "-text").fadeIn(SHOW_TEXT_ANIM_DURATION).dequeue();
+    });
     stripStates[strip] = false;
+  };
+  
+  /**
+  * Changes the overlay colour of a strip. Technically should be in a different
+  * class, maybe.
+  * @param strip {Num} The strip's overlay to animate.
+  * @param colour {String} The colour to change it to.
+  * @param options {Object} An object with any of the fields:
+  *   opacity: {Num} Opacity (from 0 to 1).
+  *   duration: {Num} Animation duration in ms. Defaults to 8000.
+  */
+  this.setOverlay = function(strip, colour, options) {
+    var duration = (options.duration === undefined ? 8000 : options.duration),
+        opacity = (options.opacity === undefined ?
+                   $("overlay" + strip).css("opacity") : options.opacity);
+    $("#overlay" + strip).animate(
+      {backgroundColor: colour, opacity: opacity}, duration, "linear"
+    );
   };
 }
 
 /**
 * A sprite to be drawn, with a variety of effects. Allows four types of
 *		non-mutually exclusive behaviour: normal, lighted, animated, parallax.
-* @param {Num} x The x position, from a point of origin.
-* @param {Num} y The y position, from a point of origin.
+* @param {Num | String} x The x position, from a point of origin. In most
+*   strips you can use a string of a number ("0" : 0%; 1 : "100%") for 
+*   positioning relative to viewportWidth.
+* @param {Num | String} y The y position, from a point of origin. In most
+*   strips you can use a string of a number ("0" : 0%; 1 : "100%") for 
+*   positioning relative to viewportHeight.
 * @param {Object} options An object, with any of the following fields:
 *		name: {String} A name, useful for identifying a sprite.
 *		imgSrc: {String} Source location of the image.
@@ -730,9 +779,9 @@ function tickAll() {
   setTimeout(function() {
     window.requestAnimFrame(tickAll);
     timeElapsed = Date.now() - START_TIME;
-    strip1.tick();
+    //strip1.tick();
     strip2.tick();
-    strip3.tick();
+    //strip3.tick();
     //TODO: call tick() on all strips
   }, 1000 / 30);
 }
@@ -816,6 +865,11 @@ function displayDialog(strip, id) {
 /** Allows shorter method for calling dialogManager.restoreDialog() */
 function restoreDialog(strip) {
   dialogManager.restoreDialog(strip);
+}
+
+/** Allows shorter method for calling dialogManager.setOverlay() */
+function setOverlay(strip, colour, opacity) {
+  dialogManager.setOverlay(strip, colour, opacity);
 }
 
 // TODO: remove in final code

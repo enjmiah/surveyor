@@ -15,6 +15,7 @@
   <script type="text/javascript"
           src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js">
   </script>
+  <script type="text/javascript" src="jQuery-color.js"></script>
   <script>
     $(function() {
       $('a[href*=#]:not([href=#])').click(function() {
@@ -109,7 +110,7 @@
       letter-spacing: 0px;
       color: #bbb;
 
-      background-color: rgba(10, 10, 10, 0.3);
+      background-color: rgba(10, 10, 10, 0.37);
       padding: 35px;
       width: 66%;
       position: relative;
@@ -162,9 +163,9 @@
     }
 
     #overlay2 {
-      /*opacity: 0.7;
+      opacity: 0;
       background-color: #020204;
-      mix-blend-mode: multiply;*/
+      mix-blend-mode: multiply;
     }
 
     #strip3 {
@@ -180,7 +181,7 @@
         -webkit-box-sizing: border-box;
         -moz-box-sizing: border-box;
       display: block;
-      height: 180px;
+      height: 240px;
       width: 100%;
       padding: 50px;
       background-color: #dcdbda;
@@ -252,7 +253,7 @@
     <div class="dialog" id="radio-listen">
       Something familiar seems to be playing. It reminds you of something...<br>
       <br>
-      <a class="left">> It reminds you of college.</a>
+      <a class="left" onClick="setOverlay(2, '#000000', {opacity: 1})">> It reminds you of college.</a>
       <a class="left">> It reminds you of horses.</a>
       <a class="left" onClick="restoreDialog(2)">> Nevermind.</a>
     </div>
@@ -261,6 +262,12 @@
       No need. It's already yours.<br>
       <br>
       <a class="close" onClick="restoreDialog(2)">- X -</a>
+    </div>
+    
+    <div class="dialog">
+      Bring on the night.
+      
+      <a class="left" onClick="setOverlay(2, '#020204', {opacity: 0.7})">> Continue.</a>
     </div>
 
     <div id="strip2-text">
@@ -322,6 +329,9 @@
       <em>2015</em><br>
       <br>
       <span style="font-size: 0.9em;">
+        <a href="#">Credits</a>&nbsp; &bull;&nbsp;
+        <a href="#">Walkthrough</a><br>
+        <br>
         <a href="#" onClick='window.location="view-source:" + window.location.href'>View Page Source</a>&nbsp; &bull;&nbsp;
         <a href="view-source:surveyor.js">View JS</a>&nbsp; &bull;&nbsp;
         <a href="https://github.com/enjmiah/surveyor">GitHub</a>

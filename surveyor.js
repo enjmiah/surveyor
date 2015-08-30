@@ -10,7 +10,7 @@ var viewportWidth = viewport().width,
     START_TIME = Date.now(),
     timeElapsed = 0,
     DIR = "assets/",
-    documentStrip2 = document.getElementById("strip1"),
+    NUM_STRIPS = 4, //TODO: update this num
     dialogManager = new DialogManager(),
     strip1 = new Strip1(),
     strip2 = new Strip2(),
@@ -303,15 +303,40 @@ function Strip2() {
       mouseY = viewportHeight / 2,
       x = mouseX,
       y = mouseY,
-      sprites = [new Sprite("0.5", "0.5", {imgSrc: DIR + "2mountains.png", depth: 10000}),
+      fire1Frames = [],
+      fire2Frames = [], i;
+  for (i = 0; i < 173; i++) {
+    fire1Frames.push(new Frame(DIR + "fire/fire" + zeroFill(i, 3) + ".png",
+                               i * 33.333));
+  }
+  for (i = 87; i < 173; i++) {
+    fire2Frames.push(new Frame(DIR + "fire/fire" + zeroFill(i, 3) + ".png",
+                              (i - 87) * 33.333));
+  }
+  for (i = 0; i < 87; i++) {
+    fire2Frames.push(new Frame(DIR + "fire/fire" + zeroFill(i, 3) + ".png",
+                              (i + 86) * 33.333));
+  }
+  var FIRE1_SPRITE = new Sprite(1235, "0.61", {frames: fire1Frames, length: 6233.271,
+                                               depth: 70}),
+      FIRE2_SPRITE = new Sprite(1235, "0.61", {frames: fire2Frames, length: 6233.271,
+                                               depth: 70, name: "fire"}),
+      FIRE1_INDEX = 7,
+      FIRE2_INDEX = 8,
+      sprites = [new Sprite("0.5", "0.5", {imgSrc: DIR + "2mountains.png",
+                                           depth: 10000}),
                  new Sprite("0.5", "0.5", {imgSrc: DIR + "2trees2.png", depth: 150}),
                  new Sprite("0.5", "0.5", {imgSrc: DIR + "2trees1.png", depth: 90}),
-                 new Sprite("0.5", "0.5", {imgSrc: DIR + "2bank.png", depth: 80}),
-                 new Sprite("0.5", "0.5", {imgSrc: DIR + "2onbank.png", depth: 80}),
-                 new Sprite(822, "0.78", {imgSrc: DIR + "2radio.png", depth: 80,
-                                      name: "radio"}),
+                 new Sprite("0.5", "0.5", {imgSrc: DIR + "2bank.png", depth: 70}),
+                 new Sprite("0.5", "0.5", {imgSrc: DIR + "2onbank.png", depth: 70}),
+                 new Sprite(822, "0.78", {imgSrc: DIR + "2radio.png", depth: 70,
+                                          name: "radio"}),
+                 new Sprite(1615, "0.64", {imgSrc: DIR + "2noah.png", depth: 70,
+                                           name: "noah"}),
+                 null,
+                 null,
                  new Sprite("0.5", "0.5", {imgSrc: DIR + "2overhang.png", depth: 5})],
-      interactiveSpriteIndices = [5];
+      interactiveSpriteIndices = [5, 6];
 
   /** Ticks everything. */
   this.tick = function() {
@@ -332,50 +357,52 @@ function Strip2() {
 
   /** Renders a sprite onto the canvas. */
   this.renderSprite = function(spr) {
-    var img;
-    ctx.scale(hScaleFactor, hScaleFactor);
+    if (spr !== null) {
+      var img;
+      ctx.scale(hScaleFactor, hScaleFactor);
 
-    if (spr.img !== undefined)
-      img = spr.img;
-    else if (spr.frames !== undefined)
-      img = spr.getFrame(timeElapsed).img;
+      if (spr.img !== undefined)
+        img = spr.img;
+      else if (spr.frames !== undefined)
+        img = spr.getFrame(timeElapsed).img;
 
-    if (img === undefined) {
-      ctx.scale(1 / hScaleFactor, 1 / hScaleFactor);
-      console.log(spr.y);
-      throw new TypeError("Sprite must have an image or frames.");
-    }
-
-    if (spr.depth !== undefined) {
-      var imgX = (typeof spr.x === "string" ? 
-                  parseFloat(spr.x) * viewportWidth :
-                  viewportWidth / 2 + (spr.x - 1250) * hScaleFactor),
-          imgY = (typeof spr.y === "string" ?
-                  parseFloat(spr.y) * viewportHeight :
-                  spr.y * hScaleFactor);
-      /*
-      if (typeof spr.x === "string") {
-        imgX = parseFloat(spr.x) * viewportWidth;
-      } else {
-        imgX = viewportWidth / 2 + (spr.x - 1250) * hScaleFactor;
+      if (img === undefined) {
+        ctx.scale(1 / hScaleFactor, 1 / hScaleFactor);
+        throw new TypeError("Sprite must have an image or frames.");
       }
-      if (typeof spr.y === "string") {
-        imgY = parseFloat(spr.y) * viewportHeight;
-      } else {
-        imgY = spr.y * viewportHeight / 1000;
-      }*/
-      
-      ctx.drawImage(img,
-                    Math.round((imgX + 800 * (viewportWidth/2 - x) /
-                               (spr.depth * viewportWidth)) /
-                               hScaleFactor - img.width / 2),
-                    Math.round(imgY / hScaleFactor - img.height / 2));
-    } else {
-      ctx.scale(1 / hScaleFactor, 1 / hScaleFactor);
-      throw new TypeError("Sprite must have parallax fields be defined.");
-    }
 
-    ctx.scale(1 / hScaleFactor, 1 / hScaleFactor);
+      if (spr.depth !== undefined) {
+        var imgX = (typeof spr.x === "string" ? 
+                    parseFloat(spr.x) * viewportWidth :
+                    viewportWidth / 2 + (spr.x - 1250) * hScaleFactor),
+            imgY = (typeof spr.y === "string" ?
+                    parseFloat(spr.y) * viewportHeight :
+                    spr.y * hScaleFactor);
+
+        ctx.drawImage(img,
+                      Math.round((imgX + 800 * (viewportWidth/2 - x) /
+                                 (spr.depth * viewportWidth)) /
+                                 hScaleFactor - img.width / 2),
+                      Math.round(imgY / hScaleFactor - img.height / 2));
+      } else {
+        ctx.scale(1 / hScaleFactor, 1 / hScaleFactor);
+        throw new TypeError("Sprite must have parallax fields be defined.");
+      }
+
+      ctx.scale(1 / hScaleFactor, 1 / hScaleFactor);
+    }
+  };
+  
+  /** Changes scene to night time. */
+  this.changeToNight = function() {
+    setOverlay(2, '#000000', {duration: 400, opacity: 1, callback: function() {
+      sprites[FIRE1_INDEX] = FIRE1_SPRITE;
+      sprites[FIRE2_INDEX] = FIRE2_SPRITE;
+      interactiveSpriteIndices.push(FIRE2_INDEX);
+    }});
+    dialogManager.setOverlay(2, '#020204', {opacity: 0, duration: 400});
+    $("#strip2").animate({backgroundColor: "#000000"}, 12000, "linear");
+    dialogManager.setOverlay(2, '#020204', {opacity: 0.6, duration: 12000});
   };
 
   /** Updates mouseX based on mouse movement. */
@@ -402,10 +429,15 @@ function Strip2() {
     var clickX = e.pageX,
         clickY = e.pageY - viewportHeight,
         i;
-    console.log("click@ " + clickX + ", " + clickY);
-    if (strip2.checkClicked(clickX, clickY) === "radio") {
-      dialogManager.displayDialog(2, "radio");
-    }
+    console.log("click@ " + clickX + ", " + clickY + ", return: " + strip2.checkClicked(clickX, clickY));
+    switch (strip2.checkClicked(clickX, clickY)) {
+      case "radio":
+        dialogManager.displayDialog(2, "radio");
+        break;
+      case "noah":
+        dialogManager.displayDialog(2, "noah");
+        break;
+    } 
   };
 
   /** Checks to see if user's MouseEvent is over a sprite.
@@ -426,7 +458,8 @@ function Strip2() {
           x < (imgX + 800 * (viewportWidth/2 - x) /
                (spr.depth * viewportWidth)) + spr.img.width * hScaleFactor / 2 &&
           y > spr.y * viewportHeight - spr.img.height * hScaleFactor / 2 &&
-          y < spr.y * viewportHeight + spr.img.height * hScaleFactor / 2) {
+          y < spr.y * viewportHeight + spr.img.height * hScaleFactor / 2 &&
+          $('.dialog:hover').length === 0) {
         return spr.name;
       }
     }
@@ -586,41 +619,66 @@ function Strip3() {
 
 /** Stores chosen dialog paths and deals with displaying dialog functionality. */
 function DialogManager() {
-  var SHOW_ANIM_DURATION = 150,
-      HIDE_ANIM_DURATION = 200,
+  var SHOW_ANIM_DURATION = 140,
+      HIDE_ANIM_DURATION = 160,
       SHOW_TEXT_ANIM_DURATION = 1500,
       animQueue = $({}),
       history = {},
-      stripStates = {};
-  stripStates[1] = false;
-  stripStates[2] = false;
-  stripStates[3] = false;
-  stripStates[4] = false;
+      stripStates = {},
+      overlayAnimProgress = {}, i;
+  for (i = 1; i <= NUM_STRIPS; i++) {
+    stripStates[i] = false;
+    overlayAnimProgress[i] = false;
+  }
 
-  /** Stores a dialog choice.
-  * @param {String} k The juncture in which the choice was made.
-  * @param {String} v The dialog chosen.
+  /**
+  * Stores a dialog choice.
+  * @param {String} k A key to store a value.
+  * @param {String | Boolean} v The value to store.
   */
   this.putChoice = function(k, v) {
     history[k] = v;
+    refreshConditionalDisplay(k);
   };
 
-  /** Retrieves a dialog choice. */
+  /**
+  * Retrieves a dialog choice.
+  * @param {String} k The key.
+  */
   this.getChoice = function(k) {
     return history[k];
   };
 
-  /** Displays a dialog box for the strip specified.
+  /**
+  * Displays a dialog box for the strip specified.
   * @param {Num} strip The strip on which the dialog box should appear.
   * @param {Num} id The div id of the dialog box which should appear.
   */
   this.displayDialog = function(strip, id) {
-    this.hideDialog(strip);
-    
-    animQueue.finish().queue("fx", function() {
-      $("#" + id).slideDown(SHOW_ANIM_DURATION).dequeue();
-    });
-    stripStates[strip] = id;
+    if (stripStates[strip] !== id) {
+      var callback = function() {
+        $("#" + id).slideDown(SHOW_ANIM_DURATION);
+      },
+          state = stripStates[strip];
+      
+      if (state !== false) {
+        animQueue.finish().queue("fx", function() {
+          $("#" + state).fadeOut(HIDE_ANIM_DURATION, callback).dequeue();
+        });
+      } else {
+        animQueue.finish().queue("fx", function() {
+          $("#strip" + strip + "-text").fadeOut(HIDE_ANIM_DURATION, callback).dequeue();
+        });
+      }
+      stripStates[strip] = id;
+      
+      /*
+      this.hideDialog(strip);
+
+      animQueue.finish().queue("fx", function() {
+        $("#" + id).slideDown(SHOW_ANIM_DURATION).dequeue();
+      });*/
+    }
   };
 
   /**
@@ -629,6 +687,7 @@ function DialogManager() {
   */
   this.hideDialog = function(strip) {
     var state = stripStates[strip];
+    
     if (state !== false) {
       animQueue.finish().queue("fx", function() {
         $("#" + state).fadeOut(HIDE_ANIM_DURATION).dequeue();
@@ -645,10 +704,26 @@ function DialogManager() {
   * @param {Num} strip The strip which should be restored.
   */
   this.restoreDialog = function(strip) {
+    var callback = function() {
+      $("#strip" + strip + "-text").fadeIn(SHOW_TEXT_ANIM_DURATION);
+    },
+        state = stripStates[strip];
+    
+    if (state !== false) {
+      animQueue.finish().queue("fx", function() {
+        $("#" + state).fadeOut(HIDE_ANIM_DURATION, callback).dequeue();
+      });
+    } else {
+      animQueue.finish().queue("fx", function() {
+        $("#strip" + strip + "-text").fadeOut(HIDE_ANIM_DURATION, callback).dequeue();
+      });
+    }
+    /*
     this.hideDialog(strip);
     animQueue.finish().queue("fx", function() {
       $("#strip" + strip + "-text").fadeIn(SHOW_TEXT_ANIM_DURATION).dequeue();
     });
+    */
     stripStates[strip] = false;
   };
   
@@ -659,15 +734,27 @@ function DialogManager() {
   * @param colour {String} The colour to change it to.
   * @param options {Object} An object with any of the fields:
   *   opacity: {Num} Opacity (from 0 to 1).
-  *   duration: {Num} Animation duration in ms. Defaults to 8000.
+  *   duration: {Num} Animation duration in ms. Defaults to 10000.
+  *   callback: {Function} Function to call when animation completes.
   */
   this.setOverlay = function(strip, colour, options) {
-    var duration = (options.duration === undefined ? 8000 : options.duration),
+    var duration = (options.duration === undefined ? 10000 : options.duration),
         opacity = (options.opacity === undefined ?
-                   $("overlay" + strip).css("opacity") : options.opacity);
-    $("#overlay" + strip).animate(
-      {backgroundColor: colour, opacity: opacity}, duration, "linear"
-    );
+                   $("overlay" + strip).css("opacity") : options.opacity),
+        callback = options.callback;
+    
+    if (!overlayAnimProgress[strip]) {
+      if (duration < 1001)
+        overlayAnimProgress[strip] = true;
+      $("#overlay" + strip).finish().animate(
+        {backgroundColor: colour, opacity: opacity}, duration, "linear",
+        function() {callback(); overlayAnimProgress[strip] = false;}
+      );
+    } else {
+      $("#overlay" + strip).animate(
+        {backgroundColor: colour, opacity: opacity}, duration, "linear", callback
+      );
+    }
   };
 }
 
@@ -710,6 +797,8 @@ function Sprite(x, y, options) {
   this.length = options.length;
   this.depth = options.depth;
   this.blendmode = options.blendmode === undefined ? "normal" : options.blendmode;
+  if (this.frames !== undefined && this.length === undefined)
+    throw new TypeError("Define a duration for the animation!");
 
   /** Gets the frame at the time specified. */
   this.getFrame = function(time) {
@@ -743,6 +832,8 @@ function Frame(imgSrc, timestamp) {
   img.src = imgSrc;
   this.img = img;
   this.timestamp = timestamp;
+  if (timestamp === undefined)
+    throw new TypeError("Define a timestamp for the frame!");
 }
 
 /** An npc firefly. */
@@ -774,6 +865,7 @@ strip3.init();
 /* strip4.init(); */
 //TODO: call init() on all strips
 window.addEventListener("resize", forceRedraw, false);
+refreshConditionalDisplay();
 
 function tickAll() {
   setTimeout(function() {
@@ -846,8 +938,8 @@ function isVisible(strip) {
 }
 
 /**
-* Pads a number with leading zeros. Useful for URLs generated automatically by
-* 	Adobe Photoshop. Source: http://gist.github.com/andrewrk/4382935
+* Pads a number with leading zeros. Useful for filenames generated automatically
+*   by Adobe Photoshop. Source: http://gist.github.com/andrewrk/4382935
 * @param {Int} number The number to be padded.
 * @param {Int} size The size you want the number to be padded to.
 */
@@ -872,6 +964,46 @@ function setOverlay(strip, colour, opacity) {
   dialogManager.setOverlay(strip, colour, opacity);
 }
 
+/** Allows shorter method for calling dialogManager.putChoice() */
+function putChoice(k, v) {
+  dialogManager.putChoice(k, v);
+  //TODO:
+  console.log("Set " + k + " to " + dialogManager.getChoice(k));
+}
+
+/** Allows shorter method for calling dialogManager.getChoice() */
+function getChoice(k) {
+  return dialogManager.getChoice(k);
+}
+
+/**
+* Makes sure all conditional displays are displaying or hiding properly.
+* @param {String} cl The conditional display class to update. Leave empty to
+*   update all.
+*/
+function refreshConditionalDisplay(cl) {
+  console.log("Refreshed conditional text display!");
+  if (cl === "needToLightFire" || cl === undefined) {
+    $(".needToLightFire").toggle(getChoice("needToLightFire") === true);
+    $(".notNeedToLightFire").toggle(getChoice("needToLightFire") !== true);
+  }
+  if (cl === "radioListen1" || cl === undefined) {
+    $(".slept").toggle(getChoice("radioListen1") !== undefined);
+    $(".notSlept").toggle(getChoice("radioListen1") === undefined);
+    if (typeof cl === "string") return;
+  }
+  if (cl === "jarOpened" || cl === undefined) {
+    $(".jarOpened").toggle(getChoice("jarOpened") === true);
+    $(".notJarOpened").toggle(getChoice("jarOpened") !== true);
+    if (typeof cl === "string") return;
+  }
+  if (cl === "fireLit" || cl === undefined) {
+    $(".fireLit").toggle(getChoice("fireLit") === true);
+    $(".notFireLit").toggle(getChoice("fireLit") !== true);
+    if (typeof cl === "string") return;
+  }
+}
+
 // TODO: remove in final code
 function debug() {
   setInterval(function() {
@@ -884,9 +1016,10 @@ function debug() {
       str += "3 ";
     if(isVisible(4))
       str += "4 ";
-    console.log("VISIBLE: " + str);
+    //console.log("VISIBLE: " + str);
     //console.log("VW: " + viewportWidth + " VH: " + viewportHeight);
-  }, 1000);
+    //console.log(getChoice("radioListen1"));
+  }, 3000);
 }
 //debug();
 

@@ -1,0 +1,210 @@
+html {
+  box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+  margin: 0px;
+  
+  background-color: black;
+}
+
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+body {
+  width: 100%;
+  min-width: 600px;
+  margin: 0px;
+  
+  font-family: Raleway, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: 100;
+  font-size: 0.9em;
+  color: rgb(255,255,255);
+  text-align: center;
+}
+
+div {
+  margin: 0px auto;
+}
+
+
+/* ------------------------- CSS MAGIC ------------------------- */
+
+
+.scene {
+  position: relative;
+  display: block;
+  height: 100vh;
+  min-height: 400px;
+  width: 100%;
+  z-index: 1;
+}
+
+.content {
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    -webkit-transform: translateY(-50%);
+}
+
+canvas {
+  position: absolute;
+  left: 0%;
+  top: 0%;
+  z-index: -1;
+}
+
+.overlay {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  z-index: 0;
+}
+
+.largetxt {
+  position: relative;
+  z-index: 4;
+  width: 75%;
+  padding-top: 1%;
+
+  font-size: 3em;
+  letter-spacing: -2px;
+  opacity: 1;
+}
+
+.smalltxt {
+  position: relative;
+  z-index: 3;
+  width: 75%;
+  padding-top: 3%;
+
+  font-size: 0.9em;
+  font-weight: 300;
+  opacity: 0.75;
+  letter-spacing: 6px;
+}
+
+.padding {
+  padding-top: 20%;
+}
+
+.dialog {
+  font-size: 1.27em;
+  line-height: 121%;
+  font-family: "Courier New", monospace;
+  letter-spacing: 0px;
+  color: #bbb;
+
+  background-color: rgba(10, 10, 10, 0.37);
+  padding: 35px;
+  width: 75%;
+  position: relative;
+  z-index: 5;
+  display: none;
+}
+
+.dialog a {
+  color: #c67557;
+  cursor: pointer;
+}
+
+.dialog .left {
+  display: block;
+  
+  text-align: left;
+}
+
+.nav {
+  display: block;
+  z-index: 3;
+  
+  opacity: 0.8;
+  padding: 40px 40px 0px;
+}
+
+.nav a:link, .nav a:visited {
+  display: inline-block;
+  padding: 6px 12px;
+  margin: 3px;
+  
+  color: #fff;
+  background-color: rgba(255, 255, 255, 0.15);
+  text-decoration: none;
+  line-height: 25.5px;
+  font-size: 25px;
+  text-align: center;
+}
+
+.nav a:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+#scene1 {
+  background-color: #4b3f5f;
+}
+
+#scene2 {
+  background-color: #606f7a;
+}
+
+#overlay2 {
+  opacity: 0;
+  background-color: #020204;
+  mix-blend-mode: multiply;
+}
+
+#scene3 {
+  background-color: #6f4725;
+}
+
+#scene4 {
+  background-color: #0d0907;
+}
+
+
+/* ------------------------- INFORMATION ------------------------- */
+
+#title {
+  display: block;
+  width: 100%;
+  padding: 85px;
+  background-color: hsl(60, 3%, 94%);
+
+  color: #111;
+  font-size: 0.9em;
+  font-weight: 600;
+  line-height: 170%;
+}
+
+h2 {
+  font-size: 1.2em;
+  margin: 0px;
+    
+  font-weight: 600;
+}
+
+#title a {
+  text-decoration: none;
+  color: #a74c1d;
+  cursor: pointer;
+}
+
+#title a:hover, #title a:active {
+  text-decoration: line-through;
+  color: #d5713f;
+}
+
+.links {
+  margin: 20px 0px
+}
+
+#credits {
+  display: none;
+  padding: 20px;
+  
+  border-radius: 4px;
+  background-color: #fdfdfd;
+}

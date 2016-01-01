@@ -1,0 +1,476 @@
+<html>
+
+<head>
+
+	<title>SURVEYOR</title>
+
+	<link href='http://fonts.googleapis.com/css?family=Raleway:100,300'
+				rel='stylesheet' type='text/css'>
+	<script type="text/javascript"
+					src="//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+	<script type="text/javascript" src="jQuery-visible.js"></script>
+	<style>
+		html {
+			margin: 0px;
+			background-color:black;
+		}
+
+		body {
+			font-family: Raleway, Helvetica, Arial, sans-serif;
+			font-weight:100;
+			font-size:0.93em;
+			width:100%;
+			color:rgb(255,255,255);
+			margin:0px;
+			text-align:center;
+
+			min-width:600px;
+		}
+
+		div {
+			margin: 0px auto;
+		}
+
+		.strip {
+			display:block;
+			height:100vh;
+			min-height:640px;
+			width:100%;
+		}
+
+		.largetxt {
+			font-size:4em;
+			letter-spacing: -2px;
+			height:0px;
+			position:relative;
+			top:30%;
+			z-index:3;
+		}
+
+		.smalltxt {
+			letter-spacing: 6px;
+			font-weight:300;
+			height:0px;
+			position:relative;
+			top:43%;
+			z-index:3;
+			opacity:0.75;
+		}
+
+		#strip1 {
+			background-color:rebeccapurple;
+		}
+
+		#strip2 {
+			background-color:teal;
+		}
+	</style>
+
+</head>
+
+<body>
+
+	<div class="strip" id="strip1">
+		<div class="smalltxt">
+			( Use your mouse to interact with objects. )
+		</div>
+
+		<canvas id="strip1-fg" width="100" height="100">
+			Please upgrade your browser!
+		</canvas>
+		<script>
+			/** ----- CONSTANTS ----- */
+			function Strip1() {
+				var canvas = document.getElementById("strip1-fg");
+				var ctx = canvas.getContext("2d");
+				var viewportWidth = viewport().width;
+				var viewportHeight = viewport().height;
+				var mouseX = viewportWidth/2;
+				var mouseY = viewportHeight/2;
+				var x = mouseX;
+				var y = mouseY;
+				var selfSize = 175;
+				var selfSizeInc = true;
+				var SELF_MAX_SIZE = 210;
+				var SELF_MIN_SIZE = 125;
+				var CIRCLE_RADIUS = 1.5;
+				var FFLY_ANG_SPEED = 1;
+				var FFLY_MAX_SIZE = 140;
+				var FFLY_MIN_SIZE = 60;
+				var starsImg = new Image();
+				starsImg.src = "stars.gif";
+				var starsRotation = 0;
+				var STARS_ROTATION_SPEED = 0.0002;
+				var START_TIME = new Date().getTime();
+				var scaleFactor = viewportWidth / 2000;
+				var timeElapsed = 0;
+				var fireflies = [new Firefly((viewportWidth-16) * Math.random() + 8,
+																 (viewportHeight-16) * Math.random() + 8, 105, 60),
+										 new Firefly((viewportWidth-16) * Math.random() + 8,
+																 (viewportHeight-16) * Math.random() + 8, 140, 120),
+										 new Firefly((viewportWidth-16) * Math.random() + 8,
+																 (viewportHeight-16) * Math.random() + 8, 60, 180),
+										 new Firefly((viewportWidth-16) * Math.random() + 8,
+																 (viewportHeight-16) * Math.random() + 8, 90, 240),
+										 new Firefly((viewportWidth-16) * Math.random() + 8,
+																 (viewportHeight-16) * Math.random() + 8, 75, 300),
+										 new Firefly((viewportWidth-16) * Math.random() + 8,
+																 (viewportHeight-16) * Math.random() + 8, 130, 0)];
+				var lightedObjects =
+					[new ImgObject("lighted.png", "lighted-shadow.png", 0, 0)];
+				var bgObjects =
+					[new ImgObject("rocks.png", null, 0, 0, "destination-over"),
+					 new ImgObject("streetlights.png", null, 0, 0, "destination-over")];
+				var reed1Frames = [new Frame("reeds.png", 0),
+												 new Frame("reeds-red.png", 1000)];
+				var fgObjects =
+					[//new ImgObject("reeds.png", null, 0, 0)
+					 new AnimObject(reed1Frames, 2000, 0, 0)];
+
+				/** Animates everything and deals with logic.
+				*		Pauses when entire element is offscreen. */
+				this.tick = function() {
+					if ($("#strip1").visible(true)) {
+						ctx.clearRect(0, 0, viewportWidth, viewportHeight);
+
+						timeElapsed = new Date().getTime() - START_TIME;
+
+						for (var i = 0; i < fireflies.length; i++)
+							this.renderFirefly(fireflies[i]);
+						this.renderSelf();
+
+						for (var i = 0; i < lightedObjects.length; i++)
+							this.renderObject(lightedObjects[i]);
+						for (var i = 0; i < bgObjects.length; i++)
+							this.renderObject(bgObjects[i]);
+
+						ctx.save();
+						ctx.globalCompositeOperation = "destination-over";
+						var skyGradient = ctx.createLinearGradient(0,0,0,viewportHeight);
+						skyGradient.addColorStop(0, "transparent");
+						skyGradient.addColorStop(1, "rgba(219, 170, 237, 0.8)");
+						ctx.fillStyle = skyGradient;
+						ctx.fillRect(0, 0, viewportWidth, viewportHeight);
+						ctx.restore();
+
+						ctx.save();
+						ctx.globalCompositeOperation = "destination-over";
+						ctx.translate(viewportWidth/2, viewportHeight/2);
+						ctx.rotate(starsRotation);
+						ctx.drawImage(starsImg, -viewportWidth*1.5, -viewportHeight*1.5,
+													viewportWidth*3, viewportHeight*3);
+						ctx.restore();
+						starsRotation += STARS_ROTATION_SPEED;
+
+						for (var i = 0; i < fireflies.length; i++) {
+							this.renderFirefly(fireflies[i]);
+							this.tickFirefly(fireflies[i]);
+						}
+						this.renderSelf();
+						this.tickSelf();
+
+						for (var i = 0; i < fgObjects.length; i++)
+							this.renderObject(fgObjects[i]);
+					}
+				}
+
+				this.renderSelf = function() {
+					ctx.save();
+					var fireflyImg = ctx.createRadialGradient(x, y, 0, x, y, selfSize/2);
+					fireflyImg.addColorStop(0, "rgb(204, 204, 160)");
+					fireflyImg.addColorStop(0.1, "rgba(77, 77, 68, 0.5)");
+					fireflyImg.addColorStop(0.33, "rgba(66, 66, 66, 0.3)");
+					fireflyImg.addColorStop(1, "transparent");
+					ctx.globalCompositeOperation = "screen";
+					ctx.fillStyle = fireflyImg;
+					ctx.fillRect(x - selfSize/2, y - selfSize/2, selfSize, selfSize);
+					ctx.restore();
+				}
+
+				this.tickSelf = function() {
+					if (Math.abs(mouseX-x) > 1 || Math.abs(mouseY-y) > 1) {
+						var difference = mouseX - x;
+						var displacement = difference / 8;
+						x += displacement;
+						var difference = mouseY - y;
+						var displacement = difference / 8;
+						y += displacement;
+					}
+
+					if (selfSizeInc) {
+						if (selfSize < SELF_MAX_SIZE)
+							selfSize += 1.5;
+						else
+							selfSizeInc = false;
+					} else {
+						if (selfSize > SELF_MIN_SIZE)
+							selfSize -= 1.5;
+						else
+							selfSizeInc = true;
+					}
+				}
+
+				this.renderFirefly = function(ffly) {
+					ctx.save();
+					var fireflyImg =
+							ctx.createRadialGradient(ffly.x, ffly.y, 0, ffly.x, ffly.y, ffly.size/2);
+					fireflyImg.addColorStop(0, "rgb(153, 153, 153)");
+					fireflyImg.addColorStop(0.1, "rgba(61, 61, 61, 0.5)");
+					fireflyImg.addColorStop(0.33, "rgba(40, 40, 40, 0.3)");
+					fireflyImg.addColorStop(1, "transparent");
+					ctx.globalCompositeOperation = "screen";
+					ctx.fillStyle = fireflyImg;
+					ctx.fillRect(ffly.x - ffly.size/2, ffly.y - ffly.size/2,
+											 ffly.size, ffly.size);
+					ctx.restore();
+				}
+
+				/** Calculates next position of an npc firefly. */
+				this.tickFirefly = function(ffly) {
+					var differenceX = x - ffly.x;
+					var differenceY = y - ffly.y;
+					var absDifferenceX = Math.abs(differenceX);
+					var absDifferenceY = Math.abs(differenceY);
+
+					if (ffly.sizeInc) {
+						if (ffly.size < FFLY_MAX_SIZE)
+							ffly.size += 1;
+						else
+							ffly.sizeInc = false;
+					} else if (!ffly.sizeInc) {
+						if (ffly.size > FFLY_MIN_SIZE)
+							ffly.size -= 1;
+						else
+							ffly.sizeInc = true;
+					}
+
+					if (absDifferenceX < 60 && absDifferenceY < 60)
+						ffly.follow = true;
+					else if (absDifferenceX > 90 || absDifferenceY > 90)
+						ffly.follow = false;
+
+					if (ffly.follow) {
+						if (absDifferenceX > 8 || absDifferenceY > 8) {
+							var displacement = differenceX / 14;
+							if (displacement > 10)
+								displacement = 10;
+							ffly.x += displacement;
+							var displacement = differenceY / 14;
+							if (displacement > 10)
+								displacement = 10;
+							ffly.y += displacement;
+						}
+					}
+					ffly.angle += FFLY_ANG_SPEED * Math.PI / 180;
+					ffly.x += CIRCLE_RADIUS * Math.cos(ffly.angle);
+					ffly.y += CIRCLE_RADIUS * Math.sin(ffly.angle);
+
+					if (ffly.x > viewportWidth)
+						ffly.x = viewportWidth;
+					else if (ffly.x < 0)
+						ffly.x = 0;
+					if (ffly.y > viewportHeight)
+						ffly.y = viewportHeight;
+					else if (ffly.y < 0)
+						ffly.y = 0;
+				}
+
+				this.renderObject = function(obj) {
+					if (obj instanceof ImgObject) {
+						ctx.save();
+						ctx.scale(scaleFactor, scaleFactor);
+						if (obj.shadow !== null) {
+							ctx.globalCompositeOperation = "source-atop";
+							ctx.drawImage(obj.img, 2000-obj.img.width-obj.x,
+														2000*viewportHeight/viewportWidth - obj.img.height - obj.y);
+							ctx.globalCompositeOperation = "destination-over";
+							ctx.drawImage(obj.shadow, 2000-obj.img.width-obj.x,
+														2000*viewportHeight/viewportWidth - obj.img.height - obj.y);
+						} else {
+							ctx.globalCompositeOperation = obj.blendmode;
+							ctx.drawImage(obj.img, 2000-obj.img.width-obj.x,
+														2000*viewportHeight/viewportWidth - obj.img.height - obj.y);
+						}
+						ctx.restore();
+					} else if (obj instanceof AnimObject) {
+						ctx.save();
+						ctx.scale(scaleFactor, scaleFactor);
+						var img = obj.getFrame(timeElapsed).img;
+						ctx.drawImage(img, 2000 - img.width - obj.x,
+													2000*viewportHeight/viewportWidth - img.height - obj.y);
+						ctx.restore();
+					} else
+						throw new TypeError("An object in the scene must be an AnimObject or an ImgObject");
+				}
+
+				/** Updates the mouse coordinates
+				* @param e  A mouseevent. */
+				this.handleMouse = function(e) {
+					if (e.pageX != undefined && e.pageY != undefined) {
+						mouseX = e.pageX;
+						mouseY = e.pageY;
+					} else {
+						mouseX = e.clientX
+							+ document.body.scrollLeft + document.documentElement.scrollLeft;
+						mouseY = e.clientY
+							+ document.body.scrollTop + document.documentElement.scrollTop;
+					}
+					mouseX -= canvas.offsetLeft;
+					mouseY -= canvas.offsetTop;
+				}
+
+				/** Handles window resizing (and basically anything else which requires
+				*    redrawing) */
+				this.forceRedraw = function() {
+					console.log("Redrawing!!");
+					viewportWidth = viewport().width;
+					viewportHeight = viewport().height;
+					ctx.canvas.width = viewportWidth;
+					ctx.canvas.height = viewportHeight;
+					scaleFactor = viewportWidth / 2000;
+				}
+
+				this.init = function() {
+					ctx.canvas.width = viewportWidth;
+					ctx.canvas.height = viewportHeight;
+					canvas.addEventListener("mousemove", strip1.handleMouse, false);
+					window.addEventListener("resize", strip1.forceRedraw, false);
+				}
+			}
+
+			/** An npc firefly. */
+			function Firefly(x, y, size, angle) {
+				this.x = x;
+				this.y = y;
+				this.size = size;
+				this.sizeInc = Math.random > 0.5;
+				this.angle = angle * Math.PI / 180;
+				this.follow = false;
+			}
+
+			/** An object to be drawn, with (or without) lighting effects.
+			* @param imgSrc String containing the source location of the image.
+			* @param shadowImgSrc String containing the source location of the image
+			*         in shadow. Set to null if not needed.
+			* @param x The x position, from the right.
+			* @param y The y position, from the bottom.
+			* @param blendmode String containing the blendmode to use for rendering.
+			*						Not required for lighted objects or objects with "normal" blending.
+			*/
+			function ImgObject(imgSrc, shadowImgSrc, x, y, blendmode) {
+				var img = new Image();
+				img.src = imgSrc;
+				this.img = img;
+				if (shadowImgSrc !== null) {
+					var shadowImg = new Image();
+					shadowImg.src = shadowImgSrc;
+					this.shadow = shadowImg;
+				} else
+					this.shadow = null;
+				this.x = x;
+				this.y = y;
+				this.blendmode = blendmode;
+			}
+
+			/**
+			* A frame, to be used in an AnimObject.
+			* @param {String} imgSrc The source for the frame.
+			* @param {Int} timestamp The time at which the animation switch to the frame.
+			*/
+			function Frame(imgSrc, timestamp) {
+				var img = new Image();
+				img.src = imgSrc;
+				this.img = img;
+				this.timestamp = timestamp;
+			}
+
+			/**
+			* An animated image.
+			* @param {Array<Frame>} frames An ORDERED array of the animation's frames.
+			* @param {Int} length Total duration of the animation before it loops.
+			*/
+			function AnimObject(frames, length, posX, posY) {
+				this.frames = frames;
+				this.length = length;
+				this.x = posX;
+				this.y = posY;
+				/**
+				* Gets the frame at the time specified.
+				*/
+				this.getFrame = function(time) {
+					time %= this.length;
+					var previous = this.frames[0];
+					for (var i=0; i < this.frames.length; i++) {
+						var frame = this.frames[i];
+						if (time > frame.timestamp)
+							previous = frame;
+						else if (time === frame.timestamp) {
+							previous = frame;
+							break;
+						} else
+							break;
+					}
+					return previous;
+				}
+			}
+
+			/** Initialization code */
+			var strip1 = new Strip1();
+			strip1.init();
+			function draw() {
+				setTimeout(function() {
+					window.requestAnimFrame(draw);
+					strip1.tick();
+				}, 1000 / 30);
+			}
+			draw();
+
+			/** Calculates viewport size */
+			function viewport() {
+				var strip = $("#strip1");
+				var height = strip.height();
+				var width = strip.width();
+				console.log(height.toString() + " x " + width.toString());
+				return {
+					width: width,
+					height: height
+				};
+			}
+
+			// requestAnimationFrame() shim by Paul Irish
+			// http://paulirish.com/2011/requestanimationframe-for-smart-animating/
+			window.requestAnimFrame = (function() {
+				return  window.requestAnimationFrame       ||
+						window.webkitRequestAnimationFrame ||
+						window.mozRequestAnimationFrame    ||
+						window.oRequestAnimationFrame      ||
+						window.msRequestAnimationFrame     ||
+						function(/* function */ callback, /* DOMElement */ element){
+							window.setTimeout(callback, 1000 / 60);
+						};
+			})();
+		</script>
+
+	</div>
+
+	<div class="strip" id="strip2">
+		<div class="largetxt">
+			<script>
+			</script>
+			NOW I'LL NEVER REMEMBER WHAT IT WAS
+		</div>
+	</div>
+
+	<div class="strip" id="strip3">
+		<div data-bottom-top="color:rgb(0,0,0); opacity:0;
+													-webkit-filter: blur(10px);"
+				 data-top="color:rgb(255,255,255); opacity:1;
+											-webkit-filter: blur(0px);"
+				 class="largetxt">
+			WE CARRIED LIFE AND SET IT DOWN THE WAY THOSE ANTS CARRIED EGGS
+		</div>
+	</div>
+
+</body>
+
+</html>

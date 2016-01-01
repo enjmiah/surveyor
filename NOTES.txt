@@ -1,0 +1,108 @@
+SURVEYOR
+==========
+
+Issues
+
+- 1: in FF, fg not displayed
+
+
+
+
+DIALOG
+==========
+
+It's getting cold soon, and the evening is coming fast. You found this clearing and came to light a fire.
+
+DEEP DOWN, WE FELT THE CROSSING LONG BEFORE WE SAW THE SIGNS. OUR BLOOD POUNDED IN STEP TO VAST, DARK SEAS.
+
+NOAH
+A broad-shouldered man dejectedly [sits on a log][stares into the fire].
+
+NOAH-LOOK
+When you first saw the signs of the CROSSING, you knew it was a long time coming. The CROSSING would change everything, you knew, and you were drawn to it the way those Magi were to the west.
+Your name is Noah. You're weary and unwashed from sleeping too many nights under the sky. You came to this clearing to light a fire. You should go do that.
+
+NOAH-BAG
+You have an old zippo. 
+
+JAR
+[It's a jar of fireflies.][It's an empty jar.]
+
+JAR-LOOK
+It's an old jam jar with holes poked in the lid for air, filled with the fireflies you caught earlier. They swirl gently, dancing in slow gyrations.
+
+JAR-TAKE
+You hold the jar in your hands. The lid is tightly screwed on[; you don't see the need to open it yet.][.]
+
+[> Unscrew jar.]
+> Nevermind.
+
+JAR-UNSCREW
+You release the fireflies. They'll live to light another traveller's way. That's what Isla would have wanted, you guess.
+	- X -
+
+RADIO
+It's an old radio.
+
+RADIO-LOOK
+An old model, scuffed around the corners. It the thing that keeps you company during times like these.
+
+RADIO-LISTEN
+It's been droning on for a while; its volume is turned way down. [Currently it's playing some mournful sonata that's being broadcast on the radio waves. It seems familiar, seems to remind you of something...][Currently it's playing some upbeat jazz, and someone seems to be reading a poem, but the static is too strong to make out what he's reading. His voice reminds you of someone...]
+[No time to listen, though. You've got to light a fire.]
+
+[> It reminds you of college.
+> It remind you of wild horses.]
+[> It reminds you of how the SURVEYOR's had sounded.
+> It reminds you of a play you saw once.]
+> Nevermind.
+
+RADIO-LISTEN-COLLEGE
+You had this same radio with you back in college, and would sometimes leave it on with its volume turned down, like you have now. You remember one time you had it playing before you went to Thompson's party. Isla was at the party too, though you hadn't known her name at that time.
+
+> Thompson was a painter.
+> When the party was winding down, you went outside.
+
+RADIO-LISTEN-PARTY
+When you went outside there were a few stragglers sitting outside, some who were disinterested in the party or otherwise felt a little socially overwhelmed. There was a swarm of fireflies outside in Thompson's yard. Isla was sitting on his porch, brooding, and you showed her how to catch fireflies with your cupped hands, just like how your father taught you. You caught three and put them in her empty glass.
+She had laughed and said "Oh," in a quiet monotone, cracked from not speaking for so long, and then, correcting herself, said "oh" again, but had this time tried earnestly to sound more impressed, more fascinated.
+
+> Continue.
+
+RADIO-LISTEN-THOMPSON
+Thompson liked to paint what he called "plein airs." Once, you helped carry his easel as the two of you climbed over construction barriers to the part of the river where the dead fish lay beached on the sand.
+He had tried to teach you how to paint but you ended up falling asleep. "Just use gentle criss-cross strokes for the sky," he had said. "Gentle, criss-cross strokes."
+
+> Continue.
+
+RADIO-LISTEN-HORSES
+You remember the time you went back home from college to your dying father: you had stepped outside for a moment, and gazed at the shoats, shivering in the night air because no one had brought them back in. "A stroke," the doctors had said, your father had had a stroke. In his last days your father had grown hateful and afraid: afraid of immobility, afraid of death, afraid that he would one day no longer understand (though this had already happened, and it was only delusion that made him believe that this was not so) the world.
+
+> Continue.
+
+RADIO-LISTEN-BARN
+
+Across the fields (now fallow and unfarmed in your father's old age) you witnessed a herd of wild horses file across parallel to the old fence which kept the shoats away from the outside world. Or maybe you imagined it: that evening you had done (in secret) a small amount of psilocybin in order to bear your father's ravings (even more hateful and uninformed than usual, and a little too much to bear, not that you had all that many opinions about anything - the general consensus among your peers was that you weren't the sharpest tool in the shed).
+When your father died later that night it was a relief, and you brought the shoats in and slept in the barn.
+
+> Continue.
+
+RADIO-LISTEN-TRAIN
+
+On the train back to the college - and this would be the last time you went back to the college, with your father dying penniless followed by the foreclosure indicating that you had best be moving on (you hadn't felt much anything about this, it just seemed like what had to be done, one of many things that happened to a person) - you had stared out the window and wondered about where the horses had come from and where they were going. Though you hadn't realized it at the time, you would soon be like the wild horses: always going places, full of spirit, living, and what the hills were made of, always moving. Movement.
+
+> Continue.
+
+RADIO-LISTEN-SURVEYOR
+You had come to the town to see the SURVEYOR, had waded through the scornful glances of the townsfolk because you know that the SURVEYOR was what mattered. He had turned his nose slightly at your smell, but he hadn't looked down on you like the others. He had told you to look for the signs of the CROSSING, and to follow the river's path past where the dead fish lay, and you had listened. His voice had been noble, graceful, like some swift, wild animal.
+
+	- X -
+
+RADIO-LISTEN-PLAY
+
+
+RADIO-LISTEN-WAKE
+You must have nodded off. There's no time for that. You still need to light your fire.
+
+	- X -
+

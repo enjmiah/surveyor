@@ -1,0 +1,83 @@
+<html>
+
+<head>
+
+  <script type="text/javascript"
+          src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+
+</head>
+
+<body>
+	<div class="strip" id="strip1">
+		<div class="text">
+      Hi.
+		</div>
+
+		<canvas id="canvas" width="200" height="200">
+			Please upgrade your browser!
+		</canvas>
+		<script>
+			var canvas = document.getElementById("canvas");
+			var ctx = canvas.getContext("2d");
+			var viewportWidth = window.innerWidth;
+			var viewportHeight = window.innerHeight;
+			var startTime = new Date().getTime();
+
+			var calcTime = 0;
+      var aBoolean = true;
+      
+      $(".text").toggle(aBoolean);
+      
+      setInterval(function() {
+        aBoolean = !aBoolean;
+        console.log(aBoolean);
+      }, 1000);
+      
+			/*
+			function draw() {
+				setTimeout(function() {
+					window.requestAnimFrame(draw);
+					tick();
+				}, 1000 / 30);
+			}
+			draw();
+
+			function tick() {
+				ctx.clearRect(0,0,viewportWidth,viewportHeight);
+				var timeElapsed = new Date().getTime() - startTime;
+				ctx.font = "11px Arial";
+				ctx.fillText(timeElapsed.toString(), 0, 10);
+
+				ctx.fillText(~~(0.5 + calcTime).toString(), 0, 30);
+				calcTime += 1000/30;
+				object.log(4);
+			}
+			*/
+
+			/*
+			function draw() {
+				window.requestAnimFrame(draw);
+				tick();
+			}
+			draw();*/
+
+			var value = "0";
+			console.log(!!value);
+
+			// requestAnimationFrame() shim by Paul Irish
+			// http://paulirish.com/2011/requestanimationframe-for-smart-animating/
+			window.requestAnimFrame = (function() {
+				return  window.requestAnimationFrame       ||
+						window.webkitRequestAnimationFrame ||
+						window.mozRequestAnimationFrame    ||
+						window.oRequestAnimationFrame      ||
+						window.msRequestAnimationFrame     ||
+						function(/* function */ callback, /* DOMElement */ element){
+							window.setTimeout(callback, 1000 / 60);
+						};
+			})();
+		</script>
+	</div>
+
+</body>
+</html>

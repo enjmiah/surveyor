@@ -161,11 +161,16 @@ canvas {
 }
 
 #scene4 {
+  background-color: #0a894a;
+}
+
+#scene5 {
   background-color: #0d0907;
 }
 
 
 /* ------------------------- INFORMATION ------------------------- */
+
 
 #title {
   display: block;

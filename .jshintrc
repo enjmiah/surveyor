@@ -1,0 +1,26 @@
+//jshint latedef: nofunc
+//jshint -W097
+//jslint plusplus: true
+
+{
+	"globals": {
+    "SURVEYOR": true,
+		"START_TIME": true,
+		"DIR": true,
+		"NUM_SCENES": true,
+		"viewport": true,
+		"updateVisible": true,
+		"zeroFill": true,
+		"clamp": true,
+		"displayDialog": true,
+		"restoreDialog": true,
+		"setOverlay": true,
+		"putChoice": true
+	},
+  "latedef": "nofunct",
+  "jquery": true,
+  "browser": true,
+  "devel": true,
+  "esnext": true,
+  "-W097": true
+}

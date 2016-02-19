@@ -39,10 +39,10 @@ SURVEYOR.Scene4 = function() {
 	};
 
 	this.init = function() {
-		ctx.mozImageSmoothingEnabled = false;
-		ctx.webkitImageSmoothingEnabled = false;
-		ctx.msImageSmoothingEnabled = false;
-		ctx.imageSmoothingEnabled = false;
+		ctx.mozImageSmoothingEnabled = 
+			ctx.webkitImageSmoothingEnabled = 
+			ctx.msImageSmoothingEnabled = 
+			ctx.imageSmoothingEnabled = false;
 		this.forceRedraw();
 		document.getElementById("scene4")
 			.addEventListener("mousemove", this.handleMouse, false);

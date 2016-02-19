@@ -30,8 +30,8 @@ for (var i = 0, len = scenes.length; i < len; i++)
 /** Resizes all the scenes mainly. Calls forceRedraw() on each scene. */
 function forceRedraw() {
 	var v = viewport();
-  SURVEYOR.SURVEYOR.viewportWidth = v.width;
-  SURVEYOR.SURVEYOR.viewportHeight = v.height;
+  SURVEYOR.viewportWidth = v.width;
+  SURVEYOR.viewportHeight = v.height;
   SURVEYOR.wScaleFactor = v.width / 2000;
   SURVEYOR.hScaleFactor = v.height / 1000;
   

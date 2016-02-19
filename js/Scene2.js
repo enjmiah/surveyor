@@ -74,58 +74,58 @@ SURVEYOR.Scene2 = function() {
 
 	/** Renders a sprite onto the canvas. */
 	this.renderSprite = function(spr) {
-		if (spr !== null) {
-			var img, sx, sy, swidth, sheight;
-			ctx.scale(SURVEYOR.hScaleFactor, SURVEYOR.hScaleFactor);
+		if (spr === null) return;
+		
+		var img, sx, sy, swidth, sheight;
+		ctx.scale(SURVEYOR.hScaleFactor, SURVEYOR.hScaleFactor);
 
-			if (spr.img !== undefined)
-				img = spr.img;
-			else if (spr.frames !== undefined) {
-				var frame = spr.getFrame(SURVEYOR.timeElapsed);
-				img = frame.img;
-				if (frame.isClipped) {
-					sx = frame.sx;
-					sy = frame.sy;
-					swidth = frame.swidth;
-					sheight = frame.sheight;
-				}
+		if (spr.img !== undefined)
+			img = spr.img;
+		else if (spr.frames !== undefined) {
+			var frame = spr.getFrame(SURVEYOR.timeElapsed);
+			img = frame.img;
+			if (frame.isClipped) {
+				sx = frame.sx;
+				sy = frame.sy;
+				swidth = frame.swidth;
+				sheight = frame.sheight;
 			}
-
-			if (img === undefined) {
-				ctx.scale(1 / SURVEYOR.hScaleFactor, 1 / SURVEYOR.hScaleFactor);
-				throw new TypeError("Sprite must have an image or frames.");
-			}
-
-			if (spr.depth !== undefined) {
-				var imgX = (typeof spr.x === "string" ? 
-										parseFloat(spr.x) * SURVEYOR.viewportWidth :
-										SURVEYOR.viewportWidth / 2 + (spr.x - 1250) * SURVEYOR.hScaleFactor),
-						imgY = (typeof spr.y === "string" ?
-										parseFloat(spr.y) * SURVEYOR.viewportHeight :
-										spr.y * SURVEYOR.hScaleFactor);
-
-				if (sx === undefined) {
-					ctx.drawImage(img,
-												~~((imgX + 800 * (SURVEYOR.viewportWidth/2 - x) /
-														(spr.depth * SURVEYOR.viewportWidth)) /
-													 SURVEYOR.hScaleFactor - img.width / 2),
-												~~(imgY / SURVEYOR.hScaleFactor - img.height / 2),
-												img.width * spr.scale, img.height * spr.scale);
-				} else {
-					ctx.drawImage(img, sx, sy, swidth, sheight,
-												~~((imgX + 800 * (SURVEYOR.viewportWidth/2 - x) /
-														(spr.depth * SURVEYOR.viewportWidth)) /
-													 SURVEYOR.hScaleFactor - swidth / 2),
-												~~(imgY / SURVEYOR.hScaleFactor - sheight / 2),
-												swidth * spr.scale, sheight * spr.scale);
-				}
-			} else {
-				ctx.scale(1 / SURVEYOR.hScaleFactor, 1 / SURVEYOR.hScaleFactor);
-				throw new TypeError("Sprite must have parallax fields be defined.");
-			}
-
-			ctx.scale(1 / SURVEYOR.hScaleFactor, 1 / SURVEYOR.hScaleFactor);
 		}
+
+		if (img === undefined) {
+			ctx.scale(1 / SURVEYOR.hScaleFactor, 1 / SURVEYOR.hScaleFactor);
+			throw new TypeError("Sprite must have an image or frames.");
+		}
+
+		if (spr.depth !== undefined) {
+			var imgX = (typeof spr.x === "string" ? 
+									parseFloat(spr.x) * SURVEYOR.viewportWidth :
+									SURVEYOR.viewportWidth / 2 + (spr.x - 1250) * SURVEYOR.hScaleFactor),
+					imgY = (typeof spr.y === "string" ?
+									parseFloat(spr.y) * SURVEYOR.viewportHeight :
+									spr.y * SURVEYOR.hScaleFactor);
+
+			if (sx === undefined) {
+				ctx.drawImage(img,
+											~~((imgX + 800 * (SURVEYOR.viewportWidth/2 - x) /
+													(spr.depth * SURVEYOR.viewportWidth)) /
+												 SURVEYOR.hScaleFactor - img.width / 2),
+											~~(imgY / SURVEYOR.hScaleFactor - img.height / 2),
+											img.width * spr.scale, img.height * spr.scale);
+			} else {
+				ctx.drawImage(img, sx, sy, swidth, sheight,
+											~~((imgX + 800 * (SURVEYOR.viewportWidth/2 - x) /
+													(spr.depth * SURVEYOR.viewportWidth)) /
+												 SURVEYOR.hScaleFactor - swidth / 2),
+											~~(imgY / SURVEYOR.hScaleFactor - sheight / 2),
+											swidth * spr.scale, sheight * spr.scale);
+			}
+		} else {
+			ctx.scale(1 / SURVEYOR.hScaleFactor, 1 / SURVEYOR.hScaleFactor);
+			throw new TypeError("Sprite must have parallax fields be defined.");
+		}
+
+		ctx.scale(1 / SURVEYOR.hScaleFactor, 1 / SURVEYOR.hScaleFactor);
 	};
 
 	/** Changes scene to night time and lights the fire. */
@@ -194,23 +194,22 @@ SURVEYOR.Scene2 = function() {
 	/** Checks to see if user's MouseEvent is over a sprite.
 	* Returns name of element hit if the element has a name, otherwise returns null. */
 	this.checkClicked = function(x, y) {
-		for (i = 0; i < interactiveSpriteIndices.length; i++) {
-			var spr = sprites[interactiveSpriteIndices[i]],
+		for (i = interactiveSpriteIndices.length - 1; i >= 0; i--) {
+			var vW = SURVEYOR.viewportWidth,
+					vH = SURVEYOR.viewportHeight,
+					hSF = SURVEYOR.hScaleFactor,
+					spr = sprites[interactiveSpriteIndices[i]],
 					img = spr.img || spr.getFrame(0).img,
 					imgX = (typeof spr.x === "string" ? 
-									parseFloat(spr.x) * SURVEYOR.viewportWidth :
-									SURVEYOR.viewportWidth / 2 + (spr.x - 1250) * SURVEYOR.hScaleFactor),
+									parseFloat(spr.x) * vW : vW / 2 + (spr.x - 1250) * hSF),
 					imgY = (typeof spr.y === "string" ?
-									parseFloat(spr.y) * SURVEYOR.viewportHeight :
-									spr.y * SURVEYOR.hScaleFactor);
+									parseFloat(spr.y) * vW : spr.y * hSF);
 
 			if (spr.name !== undefined &&
-					x > (imgX + 800 * (SURVEYOR.viewportWidth/2 - x) /
-							 (spr.depth * SURVEYOR.viewportWidth)) - img.width * SURVEYOR.hScaleFactor / 2 &&
-					x < (imgX + 800 * (SURVEYOR.viewportWidth/2 - x) /
-							 (spr.depth * SURVEYOR.viewportWidth)) + img.width * SURVEYOR.hScaleFactor / 2 &&
-					y > spr.y * SURVEYOR.viewportHeight - img.height * SURVEYOR.hScaleFactor / 2 &&
-					y < spr.y * SURVEYOR.viewportHeight + img.height * SURVEYOR.hScaleFactor / 2 &&
+					x > (imgX + 800 * (vW/2 - x) / (spr.depth * vW)) - img.width * hSF / 2 &&
+					x < (imgX + 800 * (vW/2 - x) / (spr.depth * vW)) + img.width * hSF / 2 &&
+					y > spr.y * vW - img.height * hSF / 2 &&
+					y < spr.y * vW + img.height * hSF / 2 &&
 					$('.dialog:hover').length === 0) {
 				return spr.name;
 			}
@@ -218,18 +217,20 @@ SURVEYOR.Scene2 = function() {
 		return null;
 	};
 
-	/** Handles window resizing (and basically anything else which requires
-	* 	redrawing) */
+	/**
+	* Handles window resizing (and basically anything else which requires
+	* 	redrawing)
+	*/
 	this.forceRedraw = function() {
 		ctx.canvas.width = SURVEYOR.viewportWidth;
 		ctx.canvas.height = SURVEYOR.viewportHeight;
 	};
 
 	this.init = function() {
-		ctx.mozImageSmoothingEnabled = false;
-		ctx.webkitImageSmoothingEnabled = false;
-		ctx.msImageSmoothingEnabled = false;
-		ctx.imageSmoothingEnabled = false;
+		ctx.mozImageSmoothingEnabled = 
+			ctx.webkitImageSmoothingEnabled = 
+			ctx.msImageSmoothingEnabled = 
+			ctx.imageSmoothingEnabled = false;
 		this.forceRedraw();
 		document.getElementById("scene2")
 			.addEventListener("mousemove", this.handleMouse, false);

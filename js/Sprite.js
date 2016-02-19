@@ -2,7 +2,8 @@
 /**
 * A sprite to be drawn, with a variety of effects. Allows four types of
 *		non-mutually exclusive behaviour: normal, lighted, animated, parallax.
-*   NOTE: Not all parameters are implemented in all scenes.
+*   NOTE: Not all parameters are implemented in all scenes. Implementation is
+*		completely scene-dependent, usually in the renderSprite method.
 * @param {Num | String} x The x position, from a point of origin. In most
 *   scenes you can use a string of a number ("0" : 0%; "1" : 100%) for 
 *   positioning relative to SURVEYOR.viewportWidth.

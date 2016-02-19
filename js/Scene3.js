@@ -102,8 +102,10 @@ SURVEYOR.Scene3 = function() {
 		mouseY -= canvas.offsetTop;
 	};
 
-	/** Handles window resizing (and basically anything else which requires
-	* 	redrawing) */
+	/**
+	* Handles window resizing (and basically anything else which requires
+	* 	redrawing)
+	*/
 	this.forceRedraw = function() {
 		ctx.canvas.width = SURVEYOR.viewportWidth;
 		ctx.canvas.height = SURVEYOR.viewportHeight;
@@ -115,10 +117,10 @@ SURVEYOR.Scene3 = function() {
 	};
 
 	this.init = function() {
-		ctx.mozImageSmoothingEnabled = false;
-		ctx.webkitImageSmoothingEnabled = false;
-		ctx.msImageSmoothingEnabled = false;
-		ctx.imageSmoothingEnabled = false;
+		ctx.mozImageSmoothingEnabled = 
+			ctx.webkitImageSmoothingEnabled = 
+			ctx.msImageSmoothingEnabled = 
+			ctx.imageSmoothingEnabled = false;
 		this.forceRedraw();
 		document.getElementById("scene3")
 			.addEventListener("mousemove", this.handleMouse, false);

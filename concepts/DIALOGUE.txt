@@ -1,15 +1,14 @@
 SURVEYOR
-==========
+===========
 
-Issues
+## DIALOGUE
 
-- 1: in FF, fg not displayed
+### Scene 1
+
+Nothing.
 
 
-
-
-DIALOG
-==========
+### Scene 2
 
 It's getting cold soon, and the evening is coming fast. You found this clearing and came to light a fire.
 
@@ -81,7 +80,6 @@ You remember the time you went back home from college to your dying father: you 
 > Continue.
 
 RADIO-LISTEN-BARN
-
 Across the fields (now fallow and unfarmed in your father's old age) you witnessed a herd of wild horses file across parallel to the old fence which kept the shoats away from the outside world. Or maybe you imagined it: that evening you had done (in secret) a small amount of psilocybin in order to bear your father's ravings (even more hateful and uninformed than usual, and a little too much to bear, not that you had all that many opinions about anything - the general consensus among your peers was that you weren't the sharpest tool in the shed).
 When your father died later that night it was a relief, and you brought the shoats in and slept in the barn.
 
@@ -105,4 +103,169 @@ RADIO-LISTEN-WAKE
 You must have nodded off. There's no time for that. You still need to light your fire.
 
 	- X -
+
+
+### Scene 3
+
+ISLA
+A dark-haired woman seeks shelter in a telephone booth.
+
+ISLA-LOOK
+Your name is Isla. You're here to call Jim at his work in case he might still be there; you lost his home number. The situation seems increasingly hopeless.
+
+ISLA-LISTEN
+Your voice is distraught and a little desperate. You shouldn't be here. You were looking for Jim. You were looking for the CROSSING.
+You can also hear the sound of the rain coming down hard, and it doesn't seem to have any indication of stopping.
+
+TELEPHONE
+A public telephone.
+
+LOOK | LISTEN | DIAL
+
+TELEPHONE-LOOK
+It's old and a little rusty from disuse. There's a notice stuck to the side: "DIAL 0 FOR ASSISTANCE"
+
+	- X -
+
+TELEPHONE-LISTEN
+It makes a satisfying click when you remove the handset from the cradle.
+
+	- X -
+
+TELEPHONE-DIAL
+Now is the time to dial a number.
+
+> 1
+> 2
+> 3
+> 4
+> 5
+> 6
+> 7
+> 8
+> 9
+> 0
+
+TELEPHONE-DIAL2
+
+> 1
+> 2
+> 3
+> 4
+> 5
+> 6
+> 7
+> 8
+> 9
+> 0
+[> Wait.]
+
+OPERATOR
+VOICE: 
+
+ROBOT
+VOICE: Hi. Let's try a breathing exercise. Press 1 if you wanna go on ahead with that. Press 2 if you'd rather not.
+
+> Press 1.
+> Press 2.
+> Hang up.
+
+ROBOT-BREATHING
+ISLA: Yeah, sure. Why not.
+VOICE: Good. When I tell you to, I want you to breathe in for a count of four.
+[> OK.]
+VOICE: Now, breathe in for count of one . . .
+Two . . . Three . . . Four . . .
+Now hold your breath for a count of one . . .
+Two . . . Three . . . Four . . .
+Five . . . Six . . . Seven . . .
+Now exhale for a count of one . . .
+Two . . . Three . . . Four . . .
+Five . . . Six . . . Seven . . .
+Eight . . .
+
+> Continue
+
+ROBOT-BREATHING2
+VOICE: Now let's try that again.
+[> OK.]
+VOICE: Breathe in for a count of one . . .
+Two . . . Three . . . Four . . .
+And hold your breath for a count of one . . .
+Two . . . Three . . . Four . . .
+Five . . . Six . . . Seven . . .
+Now exhale for a count of one . . .
+Two . . . Three . . . Four . . .
+Five . . . Six . . . Seven . . .
+Eight . . .
+
+> Continue
+
+ROBOT-BREATHING3
+VOICE: OK, now one last time.
+[> OK.]
+VOICE: Breathe in for a count of one . . .
+Two . . . Three . . . Four . . .
+And hold for a count of one . . .
+Two . . . Three . . . Four . . .
+Five . . . Six . . . Seven. . . .
+Now exhale and relax for a count of one . . .
+Two . . . Three . . . Four . . .
+Five . . . Six . . . Seven . . .
+Eight . . .
+VOICE: Do you feel better? Well I hope you feel better now. Any time you feel down, just keep in mind all the people who care about and believe in you. Feel free to call in again sometime.
+
+	- X -
+
+ROBOT-THERAPIST
+VOICE: Tell me about the last memorable place you felt warm.
+
+> I remember a nice meal I ate at a diner two days ago.
+> I remember sitting in front of a fire at home.
+> I remember sleeping outside during the summer.
+
+ROBOT-NICEMEAL
+ISLA: Two days ago, I stopped the car by a roadside diner. The place seemed kinda mysterious, I guess. The whole thing felt like a mime show. I don't remember the employees speaking or anything. They just seemed to move through the place in a sad, wistful dance. The food was real nice, though.
+VOICE: Well that sounds neat.
+
+ROBOT-HOME
+ISLA: I remember, uh, a few months ago? I went back home to see my parents. They had a real nice log fire going on in their place, and . . . yeah. I should be there right now. I shouldn't be here. I'm just here to look for the CROSSING.
+VOICE: Well that sounds neat.
+
+ROBOT-SUMMER
+ISLA: Last summer, I would do this thing where I would sleep outside on the lawn because it was too hot inside. I remember one night I woke up and saw a bunch of fireflies in the sky, and - oh man, I just remembered this guy Noah who once showed me how to catch them with his hands. He'd be real careful and suddenly, you know, he'd have a bunch in his hands, yeah? Oh man. That was a long time ago.
+VOICE: Well that sounds neat.
+
+OPERATOR
+OPERATOR: Hello, Operator. How can I help?
+
+> Listen, I'm looking for a Jim _______.
+> What can you tell me about the CROSSING?
+> Hang up.
+
+OPERATOR2
+ISLA: Listen, I -
+OPERATOR: Yeah, sure sure. Listen up for a minute.
+
+> I saw a play of "Winter of Our Discontent"
+
+OPERATOR-JIM
+
+DINER
+It's a cheap, run-down diner.
+
+LOOK | ENTER
+
+DINER-LOOK
+It's closed, unfortunately.
+
+DINER-ENTER
+The door is locked. On further inspection, the diner is closed for the night.
+
+BILL
+There's an advertisement on the side of the wall:
+"INTRODUCING THE _____ THERAPY EXPERIMENT
+CALL (___) ___-____ FOR A SESSION, FREE OF CHARGE"
+
+
 

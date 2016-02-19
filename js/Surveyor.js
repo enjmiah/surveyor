@@ -47,7 +47,6 @@ const START_TIME = Date.now(),
 			NUM_SCENES = 4; // TODO: update this num
 
 
-
 /**
 * Various global helpers and function aliases.
 */

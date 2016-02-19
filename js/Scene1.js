@@ -11,7 +11,9 @@ SURVEYOR.Scene1 = function() {
 			ctx = canvas.getContext("2d"),
 			mouseX = SURVEYOR.viewportWidth / 2,
 			mouseY = SURVEYOR.viewportHeight / 2,
-			x = mouseX, y = mouseY, i,
+			x = mouseX,
+			y = mouseY,
+			i,
 			dialogDisplayed = false,
 			selfSize = 175,
 			dSelfSize = 1.5,
@@ -46,18 +48,46 @@ SURVEYOR.Scene1 = function() {
 		reed2Frames[i] = new SURVEYOR.Sprite.Frame(DIR + "reeds/reed2" + zeroFill(i, 2) + ".png", i * 33.333);
 	}
 	reed2Frames[86] = new SURVEYOR.Sprite.Frame(DIR + "reeds/reed286.png", 86 * 33.333);
-	var bgSprites =	[new SURVEYOR.Sprite(0, 0, {imgSrc: DIR + "rocks.png",
-																		 blendmode: "destination-over"}),
-									 new SURVEYOR.Sprite(0, 0, {imgSrc: DIR + "streetlights.png",
-																		 blendmode: "destination-over"}),
-									 new SURVEYOR.Sprite(0, 0, {frames: carsFrames,
-																		 length: 5200,
-																		 blendmode: "destination-over"})],
-			lightedSprites = [new SURVEYOR.Sprite(0, 0, {imgSrc: DIR + "lighted.png",
-																					shadowImgSrc: DIR + "lighted-shadow.png"})],
-			fgSprites = [new SURVEYOR.Sprite(0, 0, {frames: reed1Frames, length: 86 * 33.333}),
-									 new SURVEYOR.Sprite(0, 0, {frames: reed2Frames, length: 87 * 33.333}),
-									 new SURVEYOR.Sprite(0, 0, {imgSrc: DIR + "grass.png"})];
+	var bgSprites = [
+		new SURVEYOR.Sprite(0, 0, {
+			imgSrc: DIR + "rocks.png",
+			blendmode: "destination-over",
+			scaleFactor: "h"
+		}),
+		new SURVEYOR.Sprite(0, 0, {
+			imgSrc: DIR + "streetlights.png",
+			blendmode: "destination-over",
+			scaleFactor: "h"
+		}),
+		new SURVEYOR.Sprite(0, 0, {
+			frames: carsFrames,
+			length: 5200,
+			blendmode: "destination-over",
+			scaleFactor: "h"
+		})];
+	var lightedSprites = [
+		new SURVEYOR.Sprite(0, 0, {
+			imgSrc: DIR + "lighted.png",
+			shadowImgSrc: DIR + "lighted-shadow.png",
+			scaleFactor: "h"
+		})
+	];
+	var fgSprites = [
+		new SURVEYOR.Sprite(0, 0, {
+			frames: reed1Frames,
+			length: 86 * 33.333,
+			scaleFactor: "h"
+		}),
+		new SURVEYOR.Sprite(0, 0, {
+			frames: reed2Frames,
+			length: 87 * 33.333,
+			scaleFactor: "h"
+		}),
+		new SURVEYOR.Sprite(0, 0, {
+			imgSrc: DIR + "grass.png",
+			scaleFactor: "h"
+		})
+	];
 
 	/** Animates everything and deals with logic.
 	*		Pauses when entire element is offscreen. */
@@ -65,13 +95,12 @@ SURVEYOR.Scene1 = function() {
 		if (SURVEYOR.isVisible[1]) {
 			ctx.clearRect(0, 0, SURVEYOR.viewportWidth, SURVEYOR.viewportHeight);
 
-			var i,
-					len = fireflies.length;
-			for (i = 0; i < len; i++)
+			var i;
+			for (i = fireflies.length - 1; i >= 0; i--)
 				this.renderFirefly(fireflies[i]);
 			this.renderSelf();
 
-			len = lightedSprites.length;
+			var len = lightedSprites.length;
 			for (i = 0; i < len; i++)
 				this.renderSprite(lightedSprites[i]);
 			len = bgSprites.length;
@@ -84,22 +113,21 @@ SURVEYOR.Scene1 = function() {
 
 			ctx.translate(SURVEYOR.viewportWidth / 2, SURVEYOR.viewportHeight / 2);
 			ctx.rotate(starsRotation);
-			ctx.drawImage(starsImg, -SURVEYOR.viewportWidth * 1.5, -SURVEYOR.viewportHeight * 1.5,
+			ctx.drawImage(starsImg, -SURVEYOR.viewportWidth * 1.5,
+										-SURVEYOR.viewportHeight * 1.5,
 										SURVEYOR.viewportWidth * 3, SURVEYOR.viewportHeight * 3);
 			starsRotation += STARS_ROTATION_SPEED;
 
 			ctx.setTransform(1, 0, 0, 1, 0, 0);
 
 			followers = 0;
-			len = fireflies.length;
-			for (i = 0; i < len; i++) {
+			for (i = fireflies.length - 1; i >= 0; i--) {
 				this.renderFirefly(fireflies[i]);
 				this.tickFirefly(fireflies[i]);
 
 				if (fireflies[i].follow)
 					followers++;
 			}
-
 			this.renderSelf();
 			this.tickSelf();
 
@@ -206,24 +234,26 @@ SURVEYOR.Scene1 = function() {
 	/** Renders an sprite onto the canvas. */
 	this.renderSprite = function(spr) {
 		ctx.scale(SURVEYOR.wScaleFactor, SURVEYOR.wScaleFactor);
+		var vH = SURVEYOR.viewportHeight,
+				vW = SURVEYOR.viewportWidth;
 		if (spr.img !== undefined) {
 			if (spr.shadow !== undefined) { //TODO
 				ctx.globalCompositeOperation = "source-atop";
 				ctx.drawImage(spr.img, 2000 - spr.img.width - spr.x,
-											2000*SURVEYOR.viewportHeight/SURVEYOR.viewportWidth - spr.img.height - spr.y);
+											2000 * vH / vW - spr.img.height - spr.y);
 				ctx.globalCompositeOperation = "destination-over";
 				ctx.drawImage(spr.shadow, 2000 - spr.img.width - spr.x,
-											2000*SURVEYOR.viewportHeight/SURVEYOR.viewportWidth - spr.img.height - spr.y);
+											2000 * vH / vW - spr.img.height - spr.y);
 			} else {
 				ctx.globalCompositeOperation = spr.blendmode;
 				ctx.drawImage(spr.img, 2000 - spr.img.width - spr.x,
-											2000*SURVEYOR.viewportHeight/SURVEYOR.viewportWidth - spr.img.height - spr.y);
+											2000 * vH / vW - spr.img.height - spr.y);
 			}
 		} else if (spr.frames !== undefined) {
 			ctx.globalCompositeOperation = spr.blendmode;
 			var img = spr.getFrame(SURVEYOR.timeElapsed).img;
 			ctx.drawImage(img, 2000 - img.width - spr.x,
-										2000*SURVEYOR.viewportHeight/SURVEYOR.viewportWidth - img.height - spr.y);
+										2000 * vH / vW - img.height - spr.y);
 		} else {
 			ctx.scale(1 / SURVEYOR.wScaleFactor, 1 / SURVEYOR.wScaleFactor);
 			throw new TypeError("A sprite in the scene must be regular, lighted, or animated.");
@@ -244,8 +274,10 @@ SURVEYOR.Scene1 = function() {
 		}
 	};
 
-	/** Handles window resizing (and basically anything else which requires
-	* 	redrawing) */
+	/**
+	* Handles window resizing (and basically anything else which requires
+	* 	redrawing)
+	*/
 	this.forceRedraw = function() {
 		ctx.canvas.width = SURVEYOR.viewportWidth;
 		ctx.canvas.height = SURVEYOR.viewportHeight;
@@ -255,10 +287,10 @@ SURVEYOR.Scene1 = function() {
 	};
 
 	this.init = function() {
-		ctx.mozImageSmoothingEnabled = false;
-		ctx.webkitImageSmoothingEnabled = false;
-		ctx.msImageSmoothingEnabled = false;
-		ctx.imageSmoothingEnabled = false;
+		ctx.mozImageSmoothingEnabled = 
+			ctx.webkitImageSmoothingEnabled = 
+			ctx.msImageSmoothingEnabled = 
+			ctx.imageSmoothingEnabled = false;
 		this.forceRedraw();
 		document.getElementById("scene1")
 			.addEventListener("mousemove", this.handleMouse, false);

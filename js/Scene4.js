@@ -1,4 +1,7 @@
 "use strict";
+/**
+* SURVEYOR Scene IV
+*/
 SURVEYOR.Scene4 = function() {
 	const SURVEYOR_ASCEND_DAMPING = 100;
 	var canvas = document.getElementById("scene4-fg"),

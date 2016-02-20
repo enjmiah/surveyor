@@ -3,7 +3,7 @@ html {
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
   margin: 0px;
-  
+
   background-color: black;
 }
 
@@ -15,7 +15,7 @@ body {
   width: 100%;
   min-width: 600px;
   margin: 0px;
-  
+
   font-family: Raleway, "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-weight: 100;
   font-size: 0.9em;
@@ -113,14 +113,18 @@ canvas {
 
 .dialog .left {
   display: block;
-  
+
   text-align: left;
+}
+
+.close:after {
+  content: "- X -";
 }
 
 .nav {
   display: block;
   z-index: 3;
-  
+
   opacity: 0.8;
   padding: 40px 40px 0px;
 }
@@ -129,7 +133,7 @@ canvas {
   display: inline-block;
   padding: 6px 12px;
   margin: 3px;
-  
+
   color: #fff;
   background-color: rgba(255, 255, 255, 0.15);
   text-decoration: none;
@@ -168,6 +172,14 @@ canvas {
   background-color: #0d0907;
 }
 
+/* THERAPY */
+
+.breathingExercise,
+.in1, .in2, .in3, .in4, .hold1, .hold2, .hold3, .hold4, .hold5, .hold6, .hold7,
+.out1, .out2, .out3, .out4, .out5, .out6, .out7, .out8, .afterExercise {
+  display: none;
+}
+
 
 /* ------------------------- INFORMATION ------------------------- */
 
@@ -187,7 +199,7 @@ canvas {
 h2 {
   font-size: 1.2em;
   margin: 0px;
-    
+
   font-weight: 600;
 }
 
@@ -209,7 +221,7 @@ h2 {
 #credits {
   display: none;
   padding: 20px;
-  
+
   border-radius: 4px;
   background-color: #fdfdfd;
 }

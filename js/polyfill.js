@@ -1,4 +1,5 @@
 // jshint -W041
+// jshint unused: false
 "use strict";
 
 /**
@@ -19,7 +20,7 @@ window.requestAnimFrame = (function() {
 
 /**
 * Array.fill polyfill
-* http://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Array/fill
+* developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Array/fill
 */
 if (!Array.prototype.fill) {
   Array.prototype.fill = function(value) {
@@ -67,7 +68,7 @@ if (!Array.prototype.fill) {
 
 /**
 * Object.create polyfill
-* http://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Object/create
+* developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Object/create
 */
 if (typeof Object.create != 'function') {
   Object.create = (function() {

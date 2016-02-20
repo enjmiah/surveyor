@@ -14,27 +14,30 @@ for (var i = 0, len = scenes.length; i < len; i++)
     window.requestAnimFrame(tickAll);
     SURVEYOR.timeElapsed = Date.now() - START_TIME;
     updateVisible();
-    
-//    TODO: uncomment
+
+//    TODO: Use this code in production
 //    for (var i = 0, len = scenes.length; i < len; i++)
 //      scenes[i].tick();
-    
+
+    // TODO: Remove this code in production
     scene1.tick();
     scene2.tick();
-    //scene3.tick();
+    scene3.tick();
     scene4.tick();
-    //TODO: call tick() on all scenes
   }, 1000 / 30);
 })();
 
-/** Resizes all the scenes mainly. Calls forceRedraw() on each scene. */
+/**
+* Resizes all the scenes and updates values of viewportWidth and viewportHeight.
+* 	Calls forceRedraw() on each scene.
+*/
 function forceRedraw() {
-	var v = viewport();
+  var v = viewport();
   SURVEYOR.viewportWidth = v.width;
   SURVEYOR.viewportHeight = v.height;
   SURVEYOR.wScaleFactor = v.width / 2000;
   SURVEYOR.hScaleFactor = v.height / 1000;
-  
+
   for (var i = 0, len = scenes.length; i < len; i++)
     scenes[i].forceRedraw();
 }

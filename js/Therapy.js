@@ -1,9 +1,9 @@
 SURVEYOR.Therapy = (function() {
   /**
-  * Begin a breathing exercise.
-  *   This looks worse than it is! Originally it was done iteratively, but the
-  *   timing had to be tweaked too much in order for it to be *just right*.
-  */
+   * Begin a breathing exercise.
+   *   This code looks worse than it is! Originally it was done iteratively, but the
+   *   timing had to be tweaked too much in order for it to be *just right*.
+   */
   var begin = function() {
     $(".ok").fadeOut(150, function() {
       $(".breathingExercise").fadeIn(150, function() {

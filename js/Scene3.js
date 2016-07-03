@@ -1,7 +1,7 @@
 "use strict";
 /**
-*	SURVEYOR Scene III
-*/
+ * SURVEYOR Scene III
+ */
 SURVEYOR.Scene3 = function() {
   var canvas = document.getElementById("scene3-fg"),
       ctx = canvas.getContext("2d"),

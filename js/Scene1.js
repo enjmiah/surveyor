@@ -1,7 +1,7 @@
 "use strict";
 /**
-*	SURVEYOR Scene I
-*/
+ * SURVEYOR Scene I
+ */
 SURVEYOR.Scene1 = function() {
   const SELF_MAX_SIZE = 210,
         SELF_MIN_SIZE = 125,

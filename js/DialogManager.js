@@ -1,8 +1,8 @@
 "use strict";
 /**
-* Stores chosen dialog paths and deals with displaying dialog functionality.
-* Note this is a static class.
-*/
+ * Stores chosen dialog paths and deals with displaying dialog functionality.
+ * Note this is a static class.
+ */
 SURVEYOR.DialogManager = (function() {
   const SHOW_ANIM_DURATION = 140,
         HIDE_ANIM_DURATION = 160,
@@ -17,28 +17,28 @@ SURVEYOR.DialogManager = (function() {
   }
 
   /**
-  * Stores a dialog choice and refreshes the conditional display.
-  * @param {string} k A key to store a value.
-  * @param {(string|boolean|Object)} v The value to store.
-  */
+   * Stores a dialog choice and refreshes the conditional display.
+   * @param {string} k A key to store a value.
+   * @param {(string|boolean|Object)} v The value to store.
+   */
   var putChoice = function(k, v) {
     history[k] = v;
     refreshConditionalDisplay(k);
   };
 
   /**
-  * Retrieves a dialog choice.
-  * @param {string} k The key.
-  */
+   * Retrieves a dialog choice.
+   * @param {string} k The key.
+   */
   var getChoice = function(k) {
     return history[k];
   };
 
   /**
-  * Displays a dialog box for the scene specified.
-  * @param {number} scene The scene on which the dialog box should appear.
-  * @param {number} id The div id of the dialog box which should appear.
-  */
+   * Displays a dialog box for the scene specified.
+   * @param {number} scene The scene on which the dialog box should appear.
+   * @param {number} id The div id of the dialog box which should appear.
+   */
   var displayDialog = function(scene, id) {
     if (sceneStates[scene] !== id) {
       var state = sceneStates[scene],
@@ -60,9 +60,9 @@ SURVEYOR.DialogManager = (function() {
   };
 
   /**
-  * Hides dialog box for the scene specified.
-  * @param {number} scene The scene on which the dialog box should be cleared.
-  */
+   * Hides dialog box for the scene specified.
+   * @param {number} scene The scene on which the dialog box should be cleared.
+   */
   var hideDialog = function(scene) {
     var state = sceneStates[scene];
 
@@ -78,9 +78,9 @@ SURVEYOR.DialogManager = (function() {
   };
 
   /**
-  * Restores initial text for the scene specified.
-  * @param {number} scene The scene which should be restored.
-  */
+   * Restores initial text for the scene specified.
+   * @param {number} scene The scene which should be restored.
+   */
   var restoreDialog = function(scene) {
     var callback = function() {
       $("#scene" + scene + "-text").fadeIn(SHOW_TEXT_ANIM_DURATION);
@@ -100,15 +100,15 @@ SURVEYOR.DialogManager = (function() {
   };
 
   /**
-  * Changes the overlay colour of a scene. Technically should be in a different
-  * class, maybe.
-  * @param scene {number} The scene's overlay to animate.
-  * @param colour {string} The colour to change it to.
-  * @param options {Object} An object with any of the fields:
-  *   opacity: {number} Opacity (from 0 to 1).
-  *   duration: {number} Animation duration in ms. Defaults to 10000.
-  *   callback: {Function} Function to call when animation completes.
-  */
+   * Changes the overlay colour of a scene. Technically should be in a different
+   *   class, maybe.
+   * @param scene {number} The scene's overlay to animate.
+   * @param colour {string} The colour to change it to.
+   * @param options {Object} An object with any of the fields:
+   *   opacity: {number} Opacity (from 0 to 1).
+   *   duration: {number} Animation duration in ms. Defaults to 10000.
+   *   callback: {Function} Function to call when animation completes.
+   */
   var setOverlay = function(scene, colour, options) {
     var duration = (options.duration === undefined ? 10000 : options.duration),
         opacity = (options.opacity === undefined ?
@@ -130,10 +130,10 @@ SURVEYOR.DialogManager = (function() {
   };
 
   /**
-  * Makes sure all conditional displays are displaying or hiding properly.
-  * @param {string} cl The conditional display class to update. Leave empty to
-  *   update all.
-  */
+   * Makes sure all conditional displays are displaying or hiding properly.
+   * @param {string} cl The conditional display class to update. Leave empty to
+   *   update all.
+   */
   var refreshConditionalDisplay = function(cl) {
     console.log("Refreshed conditional text display!");
     if (cl === "needToLightFire" || cl === undefined) {

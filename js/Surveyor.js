@@ -1,9 +1,10 @@
 "use strict";
 // jshint unused: false
 /**
-* SURVEYOR: An interactive art project
-* @author enjmiah / http://jerryyin.me
-*/
+ * SURVEYOR: An interactive art project
+ *
+ * @author enjmiah / http://jerryyin.me
+ */
 var SURVEYOR = (function() {
   var v = viewport(),
       vW = v.width,
@@ -18,9 +19,9 @@ var SURVEYOR = (function() {
     isVisible: [null, false, false, false, false, false], // 1-indexed
 
     /**
-    * Activate debug mode.
-    * 	TODO: remove in final code
-    */
+     * Activate debug mode.
+     * 	TODO: remove in final code
+     */
     debug() {
       setInterval(function() {
         var str = "";
@@ -49,8 +50,8 @@ const START_TIME = Date.now(),
 
 
 /**
-* Various global helpers and function aliases.
-*/
+ * Various global helpers and function aliases.
+ */
 
 /** Calculates viewport size */
 function viewport() {
@@ -63,9 +64,9 @@ function viewport() {
 
 
 /**
-* Determine if a certain scene is visible in the viewport and should be ticked.
-* @param {integer} Scene # to be evaluated. First scene is 1.
-*/
+ * Determine if a certain scene is visible in the viewport and should be ticked.
+ * @param {integer} Scene # to be evaluated. First scene is 1.
+ */
 function updateVisible() {
   var scroll = (document.documentElement && document.documentElement.scrollTop) ||
         document.body.scrollTop,
@@ -91,12 +92,12 @@ function updateVisible() {
 
 
 /**
-* Pads a number with leading zeros. Useful for filenames generated automatically
-*   by Adobe Photoshop. Source: http://gist.github.com/andrewrk/4382935
-* @param {integer} number The number to be padded.
-* @param {integer} size The size you want the number to be padded to.
-* @return {string} Appropriately padded number.
-*/
+ * Pads a number with leading zeros. Useful for filenames generated automatically
+ *   by Adobe Photoshop. Source: http://gist.github.com/andrewrk/4382935
+ * @param {integer} number The number to be padded.
+ * @param {integer} size The size you want the number to be padded to.
+ * @return {string} Appropriately padded number.
+ */
 function zeroFill(number, size) {
   number = number.toString();
   while (number.length < size)
@@ -106,12 +107,12 @@ function zeroFill(number, size) {
 
 
 /**
-* Clamps a number within an interval. Requires min <= max
-* @param {number} num The number to be clamped
-* @param {number} min The minimum value num is allowed to take on
-* @param {number} max The maximum value num is allowed to take on
-* @return {number} Clamped value.
-*/
+ * Clamps a number within an interval. Requires min <= max
+ * @param {number} num The number to be clamped
+ * @param {number} min The minimum value num is allowed to take on
+ * @param {number} max The maximum value num is allowed to take on
+ * @return {number} Clamped value.
+ */
 function clamp(num, min, max) {
   return Math.min(Math.max(num, min), max);
 }

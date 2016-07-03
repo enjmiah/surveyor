@@ -1,7 +1,7 @@
 "use strict";
 /**
-* SURVEYOR Scene II
-*/
+ * SURVEYOR Scene II
+ */
 SURVEYOR.Scene2 = function() {
   var self = this,
       canvas = document.getElementById("scene2-fg"),

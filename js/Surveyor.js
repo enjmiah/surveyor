@@ -3,7 +3,7 @@
 /**
  * SURVEYOR: An interactive art project
  *
- * @author enjmiah / http://jerryyin.me
+ * @author enjmiah / jerryyin.info
  */
 var SURVEYOR = (function() {
   var v = viewport(),
@@ -20,7 +20,7 @@ var SURVEYOR = (function() {
 
     /**
      * Activate debug mode.
-     * 	TODO: remove in final code
+     *  TODO: remove in final code
      */
     debug() {
       setInterval(function() {
@@ -62,7 +62,6 @@ function viewport() {
   };
 }
 
-
 /**
  * Determine if a certain scene is visible in the viewport and should be ticked.
  * @param {integer} Scene # to be evaluated. First scene is 1.
@@ -90,7 +89,6 @@ function updateVisible() {
     SURVEYOR.isVisible[4] = true;
 }
 
-
 /**
  * Pads a number with leading zeros. Useful for filenames generated automatically
  *   by Adobe Photoshop. Source: http://gist.github.com/andrewrk/4382935
@@ -105,7 +103,6 @@ function zeroFill(number, size) {
   return number;
 }
 
-
 /**
  * Clamps a number within an interval. Requires min <= max
  * @param {number} num The number to be clamped
@@ -117,24 +114,20 @@ function clamp(num, min, max) {
   return Math.min(Math.max(num, min), max);
 }
 
-
 /** Allows shorter method for calling SURVEYOR.DialogManager.displayDialog() */
 function displayDialog(scene, id) {
   SURVEYOR.DialogManager.displayDialog(scene, id);
 }
-
 
 /** Allows shorter method for calling SURVEYOR.DialogManager.restoreDialog() */
 function restoreDialog(scene) {
   SURVEYOR.DialogManager.restoreDialog(scene);
 }
 
-
 /** Allows shorter method for calling SURVEYOR.DialogManager.setOverlay() */
 function setOverlay(scene, colour, options) {
   SURVEYOR.DialogManager.setOverlay(scene, colour, options);
 }
-
 
 /** Allows shorter method for calling SURVEYOR.DialogManager.putChoice() */
 function putChoice(k, v) {
@@ -142,7 +135,6 @@ function putChoice(k, v) {
   // TODO: Remove this
   console.log("Set", k, "to", SURVEYOR.DialogManager.getChoice(k));
 }
-
 
 /** Allows shorter method for calling SURVEYOR.DialogManager.getChoice() */
 function getChoice(k) {

@@ -7,18 +7,37 @@
 
   <title>SURVEYOR</title>
 
-  <link href='http://fonts.googleapis.com/css?family=Raleway:100'
+  <link href='//fonts.googleapis.com/css?family=Raleway:100'
         rel='stylesheet' type='text/css'>
-  <link href='http://fonts.googleapis.com/css?family=Raleway:300'
+  <link href='//fonts.googleapis.com/css?family=Raleway:300'
         rel='stylesheet' type='text/css'>
-  <link href='http://fonts.googleapis.com/css?family=Raleway:600'
+  <link href='//fonts.googleapis.com/css?family=Raleway:600'
         rel='stylesheet' type='text/css'>
 
-  <script src="js/polyfill.js" type="text/javascript"></script>
-  <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"
           type="text/javascript"></script>
   <script src="js/jQuery-color.js" type="text/javascript"></script>
-  <script src="js/anchor-easing.js" type="text/javascript"></script>
+  <script src="js/jQuery-panelSnap.js" type="text/javascript"></script>
+  <script>
+    jQuery(function($) {
+      $('body').panelSnap({
+        $menu: $('.nav'),
+        directionThreshold: 100,
+        slideSpeed: 180,
+        easing: "swing",
+        navigation: {
+          keys: {
+            nextKey: 40,
+            prevKey: 38
+          },
+          buttons: {
+            $nextButton: $('.nav .next'),
+            $prevButton: $('.nav .prev')
+          }
+        }
+      });
+    });
+  </script>
 
   <link href="css/surveyor.css" rel="stylesheet" type="text/css">
 
@@ -54,10 +73,9 @@
     </div>
   </noscript>
 
-  <!--  ---------------------------   STRIP 1   ---------------------------
-        ----------------------       fireflies       ----------------------  -->
-  <a name="1"></a>
-  <div class="scene" id="scene1">
+  <!--  %%%%%%%%%%%%%%%%%%%%%%%%%%   SCENE 1   %%%%%%%%%%%%%%%%%%%%%%%%%%  -->
+  <!--  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  -->
+  <section class="scene" id="scene1" data-panel="1">
     <canvas id="scene1-fg" width="100" height="100">
       This page will not work properly as your browser does not support HTML5 Canvas.
     </canvas>
@@ -75,17 +93,16 @@
       </div>
 
       <div class="nav">
-        <a href="#2">&gt;</a>
+        <a class="next">&gt;</a>
       </div>
 
     </div>
-  </div>
+  </section>
 
 
-  <!--  ---------------------------   STRIP 2   ---------------------------
-        ----------------------         woods         ----------------------  -->
-  <a name="2"></a>
-  <div class="scene" id="scene2">
+  <!--  %%%%%%%%%%%%%%%%%%%%%%%%%%   SCENE 2   %%%%%%%%%%%%%%%%%%%%%%%%%%  -->
+  <!--  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  -->
+  <section class="scene" id="scene2" data-panel="2">
     <canvas id="scene2-fg" width="100" height="100">
       This page will not work properly as your browser does not support HTML5 Canvas.
     </canvas>
@@ -105,7 +122,7 @@
         When you first saw the signs of the CROSSING, you knew it was a long time coming. The CROSSING would change everything, you knew, and you were drawn to it the way those Magi were to the west.<br>
         Your name is Noah. You're weary and unwashed from sleeping too many nights under the sky.<span class="notFireLit"> You came to this clearing to light a fire. You should go do that.</span><br>
         <br>
-        <a onClick="restoreDialog(2)"></a>
+        <a class="close" onClick="restoreDialog(2)"></a>
       </div>
 
       <div class="dialog" id="noah-bag">
@@ -129,7 +146,7 @@
       <div class="dialog" id="fire-lit">
         You have lit the fire.<br>
         <br>
-        <a onClick="restoreDialog(2)"></a>
+        <a class="close" onClick="restoreDialog(2)"></a>
       </div>
 
       <div class="dialog" id="jar">
@@ -142,7 +159,7 @@
       <div class="dialog" id="jar-look">
         <span class="notIsJarOpen">It's an old jam jar with holes poked in the lid for air, filled with the fireflies you caught earlier. They swirl gently, dancing in slow gyrations.</span><span class="isJarOpen">It's an old jam jar with holes poked in the lid. It's empty.</span><br>
         <br>
-        <a onClick="restoreDialog(2)"></a>
+        <a class="close" onClick="restoreDialog(2)"></a>
       </div>
 
       <div class="dialog" id="jar-take">
@@ -161,7 +178,7 @@
       <div class="dialog" id="jar-unscrew">
         You release the fireflies. They'll live to light another traveller's way. That's what Isla would have wanted, you guess.<br>
         <br>
-        <a onClick="restoreDialog(2)"></a>
+        <a class="close" onClick="restoreDialog(2)"></a>
       </div>
 
       <div class="dialog" id="radio">
@@ -277,17 +294,16 @@
       </div>
 
       <div class="nav">
-        <a href="#1">&lt;</a>
-        <a href="#3">&gt;</a>
+        <a class="prev">&lt;</a>
+        <a class="next">&gt;</a>
       </div>
     </div>
-  </div>
+  </section>
 
 
-  <!--  ---------------------------   STRIP 3   ---------------------------
-        ----------------------       telephone       ----------------------  -->
-  <a name="3"></a>
-  <div class="scene" id="scene3">
+  <!--  %%%%%%%%%%%%%%%%%%%%%%%%%%   SCENE 3   %%%%%%%%%%%%%%%%%%%%%%%%%%  -->
+  <!--  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  -->
+  <section class="scene" id="scene3" data-panel="3">
     <canvas id="scene3-fg" width="100" height="100">
       This page will not work properly as your browser does not support HTML5 Canvas.
     </canvas>
@@ -444,15 +460,15 @@
 
 
       <div class="nav">
-        <a href="#2">&lt;</a>
-        <a href="#4">&gt;</a>
+        <a class="prev">&lt;</a>
+        <a class="next">&gt;</a>
       </div>
     </div>
-  </div>
+  </section>
 
-
-  <a name="4"></a>
-  <div class="scene" id="scene4">
+  <!--  %%%%%%%%%%%%%%%%%%%%%%%%%%   SCENE 4   %%%%%%%%%%%%%%%%%%%%%%%%%%  -->
+  <!--  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  -->
+  <section class="scene" id="scene4" data-panel="4">
     <canvas id="scene4-fg" width="100" height="100">
       This page will not work properly as your browser does not support HTML5 Canvas.
     </canvas>
@@ -463,15 +479,16 @@
       </div>
 
       <div class="nav">
-        <a href="#3">&lt;</a>
-        <a href="#5">&gt;</a>
+        <a class="prev">&lt;</a>
+        <a class="next">&gt;</a>
       </div>
     </div>
-  </div>
+  </section>
 
-
+  <!--  %%%%%%%%%%%%%%%%%%%%%%%%%%   SCENE 5   %%%%%%%%%%%%%%%%%%%%%%%%%%  -->
+  <!--  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  -->
   <a name="5"></a>
-  <div class="scene" id="scene5">
+  <section class="scene" id="scene5" data-panel="5">
     <canvas id="scene5-fg" width="100" height="100">
       This page will not work properly as your browser does not support HTML5 Canvas.
     </canvas>
@@ -484,45 +501,39 @@
       </div>
 
       <div class="nav">
-        <a href="#4">&lt;</a>&#8203;
+        <a class="prev">&lt;</a>&#8203;
       </div>
     </div>
-  </div>
+  </section>
 
 
 
-  <div id="title">
+  <section id="title">
     <div>
       <h2>Surveyor Pilot</h2>
       <em>2015</em>
 
       <div class="links">
-        <a onClick="$('#credits').slideToggle(300);">Credits</a>&nbsp; &bull;&nbsp;
-        <a href="walkthrough.html" target="_blank">Walkthrough</a>
+        <a onClick="$('#credits').slideToggle(300);">Credits</a>&emsp;&bull;&emsp;<a href="walkthrough.html" target="_blank">Walkthrough</a>&emsp;&bull;&emsp;<a href="https://github.com/enjmiah/surveyor" target="_blank">GitHub</a>
       </div>
 
       <div id="credits">
         <p>
           Code &amp; art assets by
-          <a href="http://jerryyin.me" target="_blank">Jerry Yin</a>
+          <a href="http://jerryyin.info" target="_blank">Jerry Yin</a>
         </p>
         <p>
           Made with HTML5 Canvas, jQuery (including the
-          <a href="https://github.com/customd/jquery-visible" target="_blank">visible</a>
+          <a href="https://github.com/guidobouman/jquery-panelsnap" target="_blank">panelSnap</a>,
+          <a href="https://github.com/customd/jquery-visible" target="_blank">visible</a>,
           and <a href="https://github.com/jquery/jquery-color" target="_blank">color</a>
           plugins), and lots of JS magic.
         </p>
       </div>
-
-      <div class="links">
-        <a onClick='window.location="view-source:" + window.location.href'>
-          View Page Source</a>&nbsp; &bull;&nbsp;
-        <a href="view-source:surveyor.js">View JS</a>&nbsp; &bull;&nbsp;
-        <a href="https://github.com/enjmiah/surveyor" target="_blank">GitHub</a>
-      </div>
     </div>
-  </div>
+  </section>
 
+  <script src="js/polyfill.js" type="text/javascript"></script>
   <script src="js/Surveyor.js" type="text/javascript"></script>
   <script src="js/DialogManager.js" type="text/javascript"></script>
   <script src="js/Sprite.js" type="text/javascript"></script>

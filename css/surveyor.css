@@ -129,7 +129,7 @@ canvas {
   padding: 40px 40px 0px;
 }
 
-.nav a:link, .nav a:visited {
+.nav a, .nav a {
   display: inline-block;
   padding: 6px 12px;
   margin: 3px;
@@ -140,6 +140,7 @@ canvas {
   line-height: 25.5px;
   font-size: 25px;
   text-align: center;
+  cursor: pointer;
 }
 
 .nav a:hover {
@@ -172,7 +173,7 @@ canvas {
   background-color: #0d0907;
 }
 
-/* THERAPY */
+/* -------------------------------- THERAPY ------------------------------- */
 
 .breathingExercise,
 .in1, .in2, .in3, .in4, .hold1, .hold2, .hold3, .hold4, .hold5, .hold6, .hold7,
@@ -181,7 +182,7 @@ canvas {
 }
 
 
-/* ------------------------- INFORMATION ------------------------- */
+/* ------------------------------ INFORMATION ------------------------------ */
 
 
 #title {

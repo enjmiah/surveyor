@@ -44,9 +44,9 @@ SURVEYOR.Scene3 = function() {
   };
 
   /**
-  * Renders a sprite onto the canvas.
-  * @param {Sprite} spr The sprite you want to render.
-  */
+   * Renders a sprite onto the canvas.
+   * @param {Sprite} spr The sprite you want to render.
+   */
   this.renderSprite = function(spr) {
     if (spr === null) return;
 
@@ -76,12 +76,12 @@ SURVEYOR.Scene3 = function() {
   };
 
   /**
-  * Computes the location of a sprite (useful for rendering and collisions)
-  *   For descriptions of x, y @see Sprite.js
-  * @param {(number|string)} x x-coordinate
-  * @param {(number|string)} y y-coordinate
-  * @return {Object} With x and y fields, representing location relative to screen
-  */
+   * Computes the location of a sprite (useful for rendering and collisions)
+   *   For descriptions of x, y @see Sprite.js
+   * @param {(number|string)} x x-coordinate
+   * @param {(number|string)} y y-coordinate
+   * @return {Object} With x and y fields, representing location relative to screen
+   */
   this.computeLocation = function(sprX, sprY) {
     var vW = SURVEYOR.viewportWidth,
         hSF = SURVEYOR.hScaleFactor,
@@ -130,12 +130,12 @@ SURVEYOR.Scene3 = function() {
   };
 
   /**
-  * Checks to see if user's MouseEvent is over a sprite.
-  * @param {number} x x-coordinate
-  * @param {number} y y-coordinate relative to scene
-  * @return {string} Name of element hit if the element has a name, otherwise
-  *		returns null.
-  */
+   * Checks to see if user's MouseEvent is over a sprite.
+   * @param {number} x x-coordinate
+   * @param {number} y y-coordinate relative to scene
+   * @return {string} Name of element hit if the element has a name, otherwise
+   *		returns null.
+   */
   this.checkClicked = function(x, y) {
     var hSF = SURVEYOR.hScaleFactor;
     for (var i = interactiveSpriteIndices.length - 1; i >= 0; i--) {
@@ -155,17 +155,17 @@ SURVEYOR.Scene3 = function() {
   };
 
   /**
-  * Handles window resizing (and basically anything else which requires
-  * 	redrawing)
-  */
+   * Handles window resizing (and basically anything else which requires
+   * 	redrawing)
+   */
   this.forceRedraw = function() {
     ctx.canvas.width = SURVEYOR.viewportWidth;
     ctx.canvas.height = SURVEYOR.viewportHeight;
   };
 
   /**
-  * Initializes scene.
-  */
+   * Initializes scene.
+   */
   this.init = function() {
     ctx.mozImageSmoothingEnabled =
       ctx.webkitImageSmoothingEnabled =

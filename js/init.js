@@ -15,9 +15,9 @@ for (var i = 0, len = scenes.length; i < len; i++)
     SURVEYOR.timeElapsed = Date.now() - START_TIME;
     updateVisible();
 
-//    TODO: Use this code in production
-//    for (var i = 0, len = scenes.length; i < len; i++)
-//      scenes[i].tick();
+    // TODO: Use this code in production
+    // for (var i = 0, len = scenes.length; i < len; i++)
+    //   scenes[i].tick();
 
     // TODO: Remove this code in production
     scene1.tick();
@@ -28,9 +28,9 @@ for (var i = 0, len = scenes.length; i < len; i++)
 })();
 
 /**
-* Resizes all the scenes and updates values of viewportWidth and viewportHeight.
-* 	Calls forceRedraw() on each scene.
-*/
+ * Resizes all the scenes and updates values of viewportWidth and viewportHeight.
+ * 	Calls forceRedraw() on each scene.
+ */
 function forceRedraw() {
   var v = viewport();
   SURVEYOR.viewportWidth = v.width;

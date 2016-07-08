@@ -3,13 +3,14 @@
 * SURVEYOR Scene IV
 */
 SURVEYOR.Scene4 = function() {
-	const SURVEYOR_ASCEND_DAMPING = 100;
+	const DIR = "assets/4/",
+				SURVEYOR_ASCEND_DAMPING = 100;
 	var canvas = document.getElementById("scene4-fg"),
 			ctx = canvas.getContext("2d"),
 			mouseX = SURVEYOR.viewportWidth / 2,
 			mouseY = SURVEYOR.viewportHeight / 2,
 			surveyor = new SURVEYOR.Sprite("0.5", ~~(SURVEYOR.viewportHeight * 1.65),
-														{imgSrc: DIR + "test1.png"});
+														{imgSrc: "assets/test1.png"});
 
 	this.tick = function() {
 		if (SURVEYOR.isVisible[4]) {
@@ -42,9 +43,9 @@ SURVEYOR.Scene4 = function() {
 	};
 
 	this.init = function() {
-		ctx.mozImageSmoothingEnabled = 
-			ctx.webkitImageSmoothingEnabled = 
-			ctx.msImageSmoothingEnabled = 
+		ctx.mozImageSmoothingEnabled =
+			ctx.webkitImageSmoothingEnabled =
+			ctx.msImageSmoothingEnabled =
 			ctx.imageSmoothingEnabled = false;
 		this.forceRedraw();
 		document.getElementById("scene4")

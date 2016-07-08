@@ -3,6 +3,7 @@
  * SURVEYOR Scene III
  */
 SURVEYOR.Scene3 = function() {
+  const DIR = "assets/3/";
   var canvas = document.getElementById("scene3-fg"),
       ctx = canvas.getContext("2d"),
       mouseX = SURVEYOR.viewportWidth / 2,
@@ -23,7 +24,7 @@ SURVEYOR.Scene3 = function() {
       sprites = [
         new SURVEYOR.Sprite("0.5", "0.5", {
           name: "telephone",
-          imgSrc: DIR + "test2.png"
+          imgSrc: "assets/test2.png"
         })
       ],
       interactiveSpriteIndices = [0];

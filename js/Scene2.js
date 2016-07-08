@@ -3,6 +3,7 @@
  * SURVEYOR Scene II
  */
 SURVEYOR.Scene2 = function() {
+  const DIR = "assets/2/";
   var self = this,
       canvas = document.getElementById("scene2-fg"),
       ctx = canvas.getContext("2d"),

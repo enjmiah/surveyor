@@ -44,7 +44,6 @@ var SURVEYOR = (function() {
 })();
 
 const START_TIME = Date.now(),
-      DIR = "assets/",
       NUM_SCENES = 5; // TODO: update this num
 
 

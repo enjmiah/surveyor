@@ -31,7 +31,7 @@ SURVEYOR.Scene2 = function() {
   }
   for (i = 0; i < 111; i++) {
     jarFrames[i] =
-      new SURVEYOR.Sprite.Frame(DIR + "2jarfirefly-ss.png",
+      new SURVEYOR.Sprite.Frame(DIR + "jarfirefly-ss.png",
                                 i * 33.333, i * 122, 0, 122, 109);
   }
   var FIRE1_SPRITE = new SURVEYOR.Sprite(1235, "0.61", {
@@ -51,32 +51,32 @@ SURVEYOR.Scene2 = function() {
       JAR_INDEX = 10,
       sprites = [
         new SURVEYOR.Sprite("0.5", "0.5", {
-          imgSrc: DIR + "2mountains.png",
+          imgSrc: DIR + "mountains.png",
           depth: 10000
         }),
         new SURVEYOR.Sprite("0.5", "0.5", {
-          imgSrc: DIR + "2trees2.png",
+          imgSrc: DIR + "trees2.png",
           depth: 150
         }),
         new SURVEYOR.Sprite("0.5", "0.5", {
-          imgSrc: DIR + "2trees1.png",
+          imgSrc: DIR + "trees1.png",
           depth: 90
         }),
         new SURVEYOR.Sprite("0.5", "0.5", {
-          imgSrc: DIR + "2bank.png",
+          imgSrc: DIR + "bank.png",
           depth: 70
         }),
         new SURVEYOR.Sprite("0.5", "0.5", {
-          imgSrc: DIR + "2onbank.png",
+          imgSrc: DIR + "onbank.png",
           depth: 70
         }),
         new SURVEYOR.Sprite(822, "0.78", {
-          imgSrc: DIR + "2radio.png",
+          imgSrc: DIR + "radio.png",
           depth: 70,
           name: "radio"
         }),
         new SURVEYOR.Sprite(1615, "0.64", {
-          imgSrc: DIR + "2noah.png",
+          imgSrc: DIR + "noah.png",
           depth: 70,
           name: "noah"
         }),
@@ -89,12 +89,12 @@ SURVEYOR.Scene2 = function() {
           scale: 0.667
         }),
         new SURVEYOR.Sprite(1820, "0.79", {
-          imgSrc: DIR + "2jar.png",
+          imgSrc: DIR + "jar.png",
           depth: 70,
           name: "jar"
         }),
         new SURVEYOR.Sprite("0.5", "0.5", {
-          imgSrc: DIR + "2overhang.png",
+          imgSrc: DIR + "overhang.png",
           depth: 5
         })
       ],

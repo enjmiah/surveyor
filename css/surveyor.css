@@ -23,8 +23,10 @@ body {
   text-align: center;
 }
 
-div {
-  margin: 0px auto;
+div { margin: 0px auto; }
+
+canvas {
+  content: "This page will not work properly as your browser does not support HTML5 Canvas.";
 }
 
 
@@ -87,9 +89,7 @@ canvas {
   letter-spacing: 6px;
 }
 
-.padding {
-  padding-top: 20%;
-}
+.padding { padding-top: 20%; }
 
 .dialog {
   font-size: 1.27em;
@@ -117,9 +117,7 @@ canvas {
   text-align: left;
 }
 
-.close:after {
-  content: "- X -";
-}
+.close:after { content: "- X -"; }
 
 .nav {
   display: block;
@@ -143,17 +141,15 @@ canvas {
   cursor: pointer;
 }
 
-.nav a:hover {
-  background-color: rgba(255, 255, 255, 0.2);
-}
+.nav a:hover { background-color: rgba(255, 255, 255, 0.2); }
 
-#scene1 {
-  background-color: #4b3f5f;
-}
+.prev:after { content: "<"; }
 
-#scene2 {
-  background-color: #606f7a;
-}
+.next:after { content: ">"; }
+
+#scene1 { background-color: #4b3f5f; }
+
+#scene2 { background-color: #606f7a; }
 
 #overlay2 {
   opacity: 0;
@@ -161,17 +157,11 @@ canvas {
   mix-blend-mode: multiply;
 }
 
-#scene3 {
-  background-color: #6f4725;
-}
+#scene3 { background-color: #6f4725; }
 
-#scene4 {
-  background-color: #0a894a;
-}
+#scene4 { background-color: #0a894a; }
 
-#scene5 {
-  background-color: #0d0907;
-}
+#scene5 { background-color: #0d0907; }
 
 /* -------------------------------- THERAPY ------------------------------- */
 
@@ -215,9 +205,7 @@ h2 {
   color: #d5713f;
 }
 
-.links {
-  margin: 20px 0px
-}
+.links { margin: 20px 0px; }
 
 #credits {
   display: none;

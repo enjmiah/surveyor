@@ -1,0 +1,148 @@
+<div class="largetxt" id="scene3-text">
+  NEVER BEFORE DID WE FEEL SO CONNECTED TO THE EARTH, AND NEVER AGAIN WILL WE FEEL SO.
+</div>
+
+<div class="dialog" id="telephone">
+  A public telephone.<br>
+  <br>
+  <a onClick="displayDialog(3, 'telephone-look')">LOOK</a> |
+  <a onClick="displayDialog(3, 'telephone-listen')">LISTEN</a> |
+  <a onClick="displayDialog(3, 'telephone-dial')">DIAL</a>
+</div>
+
+<div class="dialog" id="telephone-look">
+  It's old and a little rusty from disuse. There's a notice stuck to the side: "DIAL 0 FOR ASSISTANCE"<br>
+  <br>
+  <a class="close" onClick="restoreDialog(3)"></a>
+</div>
+
+<div class="dialog" id="telephone-listen">
+  It makes a satisfying click when you remove the handset from the cradle. You hear a light drone as you hold the receiver to your ear.<br>
+  <br>
+  <a class="close" onClick="restoreDialog(3)"></a>
+</div>
+
+<div class="dialog" id="telephone-dial">
+  Now is the time to dial a number.<br>
+  <br>
+  <a class="left" onClick="displayDialog(3, 'robot')">
+      > THE THERAPY EXPERIMENT
+  </a>
+  <a class="left" onClick="displayDialog(3, 'telephone-dial2')">
+      > 0
+  </a>
+</div>
+
+<div class="dialog" id="telephone-dial2">
+  <a class="left" onClick="displayDialog(3, 'telephone-dial2')">
+      > Wait
+  </a>
+</div>
+
+<div class="dialog" id="robot">
+  VOICE: Hi. Let's try a breathing exercise. Press 1 if you wanna go on ahead with that. Press 2 if you'd rather try somethin' else.<br>
+  <br>
+  <a class="left" onClick="displayDialog(3, 'robot-breathing'); SURVEYOR.Therapy.again()">
+      > Press 1.
+  </a>
+  <a class="left" onClick="displayDialog(3, 'robot-therapist')">
+      > Press 2.
+  </a>
+  <a class="left" onClick="restoreDialog(3)">
+      > Hang up.
+  </a>
+</div>
+
+<div class="dialog" id="robot-breathing">
+  ISLA: Yeah, sure. Why not.<br>
+  VOICE: Good. When I tell you to, I want you to breathe in for a count of four.
+
+  <a class="left ok" onClick="SURVEYOR.Therapy.begin()">> OK.</a><br>
+  <div class="breathingExercise">
+    <span class="in1">VOICE: Now, breathe in for count of
+      one . . .</span><br>
+    <span class="in2">Two . . . </span>
+    <span class="in3">Three . . .</span>
+    <span class="in4">Four . . .</span><br>
+    <span class="hold1">Now hold your breath for a count of
+      one . . .</span><br>
+    <span class="hold2">Two . . . </span>
+    <span class="hold3">Three . . .</span>
+    <span class="hold4">Four . . .</span><br>
+    <span class="hold5">Five . . .</span>
+    <span class="hold6">Six . . .</span>
+    <span class="hold7">Seven . . .</span><br>
+    <span class="out1">Now exhale for a count of
+      one . . .</span><br>
+    <span class="out2">Two . . . </span>
+    <span class="out3">Three . . .</span>
+    <span class="out4">Four . . .</span><br>
+    <span class="out5">Five . . .</span>
+    <span class="out6">Six . . .</span>
+    <span class="out7">Seven . . .</span><br>
+    <span class="out8">Eight . . .</span><br>
+    <br>
+    <a class="left continue" onClick="displayDialog(3, 'robot-breathing2'); SURVEYOR.Therapy.again()">
+        > Continue
+    </a>
+  </div>
+</div>
+
+<div class="dialog" id="robot-breathing2">
+  VOICE: Now let's try that again.<br>
+  <a class="left ok" onClick="SURVEYOR.Therapy.begin()">> OK.</a>
+  <div class="breathingExercise">
+    <span class="in1">VOICE: Breathe in for a count of one . . .</span><br>
+    <span class="in2">Two . . . </span>
+    <span class="in3">Three . . .</span>
+    <span class="in4">Four . . .</span><br>
+    <span class="hold1">And hold your breath for a count of one . . .</span><br>
+    <span class="hold2">Two . . . </span>
+    <span class="hold3">Three . . .</span>
+    <span class="hold4">Four . . .</span><br>
+    <span class="hold5">Five . . .</span>
+    <span class="hold6">Six . . .</span>
+    <span class="hold7">Seven . . .</span><br>
+    <span class="out1">Now exhale for a count of one . . .</span><br>
+    <span class="out2">Two . . . </span>
+    <span class="out3">Three . . .</span>
+    <span class="out4">Four . . .</span><br>
+    <span class="out5">Five . . .</span>
+    <span class="out6">Six . . .</span>
+    <span class="out7">Seven . . .</span><br>
+    <span class="out8">Eight . . .</span><br>
+    <br>
+    <a class="left continue" onClick="displayDialog(3, 'robot-breathing3'); SURVEYOR.Therapy.again()">
+        > Continue
+    </a>
+  </div>
+</div>
+
+<div class="dialog" id="robot-breathing3">
+  VOICE: OK, now one last time.<br>
+  <a class="left ok" onClick="SURVEYOR.Therapy.begin()">> OK.</a>
+  <div class="breathingExercise">
+    <span class="in1">VOICE: Breathe in for a count of one . . .</span><br>
+    <span class="in2">Two . . . </span>
+    <span class="in3">Three . . .</span>
+    <span class="in4">Four . . .</span><br>
+    <span class="hold1">And hold for a count of one . . .</span><br>
+    <span class="hold2">Two . . . </span>
+    <span class="hold3">Three . . .</span>
+    <span class="hold4">Four . . .</span><br>
+    <span class="hold5">Five . . .</span>
+    <span class="hold6">Six . . .</span>
+    <span class="hold7">Seven . . .</span><br>
+    <span class="out1">Now exhale and relax for a count of one . . .</span><br>
+    <span class="out2">Two . . . </span>
+    <span class="out3">Three . . .</span>
+    <span class="out4">Four . . .</span><br>
+    <span class="out5">Five . . .</span>
+    <span class="out6">Six . . .</span>
+    <span class="out7">Seven . . .</span><br>
+    <span class="out8">Eight . . .</span><br>
+    <span class="afterExercise">VOICE: Do you feel better? Well I hope you feel better now. Any time you feel down, just keep in mind all the people who care about and believe in you. Feel free to call in again sometime.</span><br>
+    <br>
+    <a class="close" onClick="restoreDialog(3)"></a>
+  </div>
+</div>

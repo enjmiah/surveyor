@@ -14,11 +14,12 @@
   <link href='//fonts.googleapis.com/css?family=Raleway:600'
         rel='stylesheet' type='text/css'>
 
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"
-          type="text/javascript"></script>
-  <script src="js/jQuery-color.js" type="text/javascript"></script>
-  <script src="js/jQuery-panelSnap.js" type="text/javascript"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js">
+  </script>
+  <script src="js/jQuery-color.js"></script>
+  <script src="js/jQuery-panelSnap.js"></script>
   <script>
+    /** Panel Snapping */
     jQuery(function($) {
       $('body').panelSnap({
         $menu: $('.nav'),
@@ -27,8 +28,8 @@
         easing: "swing",
         navigation: {
           keys: {
-            nextKey: 40,
-            prevKey: 38
+            prevKey: 38,
+            nextKey: 40
           },
           buttons: {
             $nextButton: $('.nav .next'),
@@ -64,7 +65,6 @@
 </head>
 
 
-
 <body>
 
   <noscript>
@@ -74,476 +74,131 @@
   </noscript>
 
   <!--  %%%%%%%%%%%%%%%%%%%%%%%%%%   SCENE 1   %%%%%%%%%%%%%%%%%%%%%%%%%%  -->
-  <!--  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  -->
   <section class="scene" id="scene1" data-panel="1">
-    <canvas id="scene1-fg" width="100" height="100">
-      This page will not work properly as your browser does not support HTML5 Canvas.
-    </canvas>
+
+    <canvas id="scene1-fg" width="100" height="100"></canvas>
 
     <div class="overlay" id="overlay1"></div>
 
     <div class="content">
-
-      <div class="dialog" id="dialog1-1">
-        You form a ring. You should use your combined light to explore the darkness.
-      </div>
 
       <div class="smalltxt">
         <div id="scene1-text">( Use your mouse to interact with objects. )</div>
       </div>
 
       <div class="nav">
-        <a class="next">&gt;</a>
+        <a class="next"></a>
       </div>
 
     </div>
+
   </section>
 
 
   <!--  %%%%%%%%%%%%%%%%%%%%%%%%%%   SCENE 2   %%%%%%%%%%%%%%%%%%%%%%%%%%  -->
-  <!--  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  -->
   <section class="scene" id="scene2" data-panel="2">
-    <canvas id="scene2-fg" width="100" height="100">
-      This page will not work properly as your browser does not support HTML5 Canvas.
-    </canvas>
+
+    <canvas id="scene2-fg" width="100" height="100"></canvas>
 
     <div class="overlay" id="overlay2"></div>
 
     <div class="content">
-      <div class="dialog" id="noah">
-        A broad-shouldered man dejectedly <span class="notFireLit">sits on a log</span><span class="fireLit">stares into the fire</span>.<br>
-        <br>
-        <a onClick="putChoice('needToLightFire', true);
-                    displayDialog(2, 'noah-look')">LOOK</a> |
-        <a onClick="displayDialog(2, 'noah-bag')">BAG</a>
-      </div>
-
-      <div class="dialog" id="noah-look">
-        When you first saw the signs of the CROSSING, you knew it was a long time coming. The CROSSING would change everything, you knew, and you were drawn to it the way those Magi were to the west.<br>
-        Your name is Noah. You're weary and unwashed from sleeping too many nights under the sky.<span class="notFireLit"> You came to this clearing to light a fire. You should go do that.</span><br>
-        <br>
-        <a class="close" onClick="restoreDialog(2)"></a>
-      </div>
-
-      <div class="dialog" id="noah-bag">
-        You've got some string, a few cans of food, some ragged clothes (unwashed), and an old zippo.<br>
-        <br>
-        <span class="needToLightFire"><span class="notFireLit">
-          <a class="left" onClick="displayDialog(2, 'noah-bag-zippo')">> Use the zippo to light the fire.</a>
-        </span></span>
-        <a class="left" onClick="restoreDialog(2)">> Nevermind.</a>
-      </div>
-
-      <div class="dialog" id="noah-bag-zippo">
-        Are you sure?<br>
-        <br>
-        <a class="left" onClick="scene2.changeToNight();
-                                 putChoice('fireLit', true);
-                                 displayDialog(2, 'fire-lit')">> Yes.</a>
-        <a class="left" onClick="restoreDialog(2)">> Wait, no. Let me explore more.</a>
-      </div>
-
-      <div class="dialog" id="fire-lit">
-        You have lit the fire.<br>
-        <br>
-        <a class="close" onClick="restoreDialog(2)"></a>
-      </div>
-
-      <div class="dialog" id="jar">
-        <span class="notIsJarOpen">It's a jar of fireflies.</span><span class="isJarOpen">It's an empty jar.</span><br>
-        <br>
-        <a onClick="displayDialog(2, 'jar-look')">LOOK</a> |
-        <a onClick="displayDialog(2, 'jar-take')">TAKE</a>
-      </div>
-
-      <div class="dialog" id="jar-look">
-        <span class="notIsJarOpen">It's an old jam jar with holes poked in the lid for air, filled with the fireflies you caught earlier. They swirl gently, dancing in slow gyrations.</span><span class="isJarOpen">It's an old jam jar with holes poked in the lid. It's empty.</span><br>
-        <br>
-        <a class="close" onClick="restoreDialog(2)"></a>
-      </div>
-
-      <div class="dialog" id="jar-take">
-        You hold the jar in your hands. The lid is tightly screwed on<span class="notIsJarOpen">; you don't see the need to open it yet</span>.<br>
-        <br>
-        <span class="notIsJarOpen"><span class="rememberedFireflies">
-          <a class="left" onClick="scene2.openJar();
-                                   displayDialog(2, 'jar-unscrew');
-                                   putChoice('isJarOpen', true);">
-            > Unscrew jar.
-          </a>
-        </span></span>
-        <a class="left" onClick="restoreDialog(2)">> Nevermind.</a>
-      </div>
-
-      <div class="dialog" id="jar-unscrew">
-        You release the fireflies. They'll live to light another traveller's way. That's what Isla would have wanted, you guess.<br>
-        <br>
-        <a class="close" onClick="restoreDialog(2)"></a>
-      </div>
-
-      <div class="dialog" id="radio">
-        It's an old radio.<br>
-        <br>
-        <a onClick="displayDialog(2, 'radio-look')">LOOK</a> |
-        <a onClick="displayDialog(2, 'radio-listen')">LISTEN</a> |
-        <a onClick="displayDialog(2, 'radio-take')">TAKE</a>
-      </div>
-
-      <div class="dialog" id="radio-look">
-        An old model, scuffed around the corners. It the thing that keeps you company during times like these.<br>
-        <br>
-        <a class="close" onClick="restoreDialog(2)"></a>
-      </div>
-
-      <div class="dialog" id="radio-listen">
-        It's been droning on for a while; its volume is turned way down. <span class="notFireLit">Currently it's playing some mournful sonata that's being broadcast on the radio waves. It seems familiar, seems to remind you of something...</span><span class="fireLit">Currently it's playing some upbeat jazz, and someone seems to be reading a poem, but the static is too strong to make out what he's reading. His voice reminds you of someone...</span><br>
-        <span class="notFireLit"><span class="slept">
-          No time to listen, though. You've got to light a fire.<br>
-        </span></span>
-        <br>
-        <span class="notSlept"><span class="notFireLit">
-          <a class="left" onClick="setOverlay(2, '#000000', {opacity: 1});
-                                   displayDialog(2, 'radio-listen-college')">
-            > It reminds you of college.
-          </a>
-          <a class="left" onClick="setOverlay(2, '#000000', {opacity: 1});
-                                   displayDialog(2, 'radio-listen-horses')">
-            > It reminds you of horses.
-          </a>
-        </span></span>
-        <span class="fireLit">
-          <a class="left" onClick="displayDialog(2, 'radio-listen-surveyor')">
-            > It reminds you of how the SURVEYOR's had sounded.
-          </a>
-          <a class="left" onClick="displayDialog(2, 'radio-listen-play')">
-            > It reminds you of an actor in a play you saw once.
-          </a>
-        </span>
-        <a class="left" onClick="restoreDialog(2)">> Nevermind.</a>
-      </div>
-
-      <div class="dialog" id="radio-listen-college">
-        You had this same radio with you back in college, and would sometimes leave it on with its volume turned down, like you have now. You remember one time you had it playing before you went to Thompson's party. Isla was at the party too, though you hadn't known her name at that time.<br>
-        <br>
-        <a class="left" onClick="displayDialog(2, 'radio-listen-thompson')">> Thompson was a painter.</a>
-        <a class="left" onClick="displayDialog(2, 'radio-listen-party')">> When the party was winding down, you went outside.</a>
-      </div>
-
-      <div class="dialog" id="radio-listen-party">
-        When you went outside there were a few stragglers sitting outside, some who were disinterested in the party or otherwise felt a little socially overwhelmed. There was a swarm of fireflies outside in Thompson's yard. Isla was sitting on his porch, brooding, and you showed her how to catch fireflies with your cupped hands, just like how your father taught you. You caught three and put them in her empty glass.<br>
-        She had laughed and said "Oh," in a quiet monotone, cracked from not speaking for so long, and then, correcting herself, said "oh" again, but had this time tried earnestly to sound more impressed, more fascinated.<br>
-        <br>
-        <a class="left" onClick="setOverlay(2, '#020204', {opacity: 0, duration:6000});
-                                 putChoice('radioListen1', 'party');
-                                 displayDialog(2, 'radio-listen-wake')">> Continue.</a>
-      </div>
-
-      <div class="dialog" id="radio-listen-thompson">
-        Thompson liked to paint what he called "plein airs." Once, you helped carry his easel as the two of you climbed over construction barriers to the part of the river where the dead fish lay beached on the sand.<br>
-        He had tried to teach you how to paint but you ended up falling asleep. "Just use gentle criss-cross strokes for the sky," he had said. "Gentle, criss-cross strokes."<br>
-        <br>
-        <a class="left" onClick="setOverlay(2, '#020204', {opacity: 0, duration: 6000});
-                                 putChoice('radioListen1', 'thompson');
-                                 displayDialog(2, 'radio-listen-wake')">> Continue.</a>
-      </div>
-
-      <div class="dialog" id="radio-listen-horses">
-        You remember the time you went back home from college to your dying father: you had stepped outside for a moment, and gazed at the shoats, shivering in the night air because no one had brought them back in. "A stroke," the doctors had said, your father had had a stroke. In his last days your father had grown hateful and afraid: afraid of immobility, afraid of death, afraid that he would one day no longer understand (though this had already happened, and it was only delusion that made him believe that this was not so) the world.<br>
-        <br>
-        <a class="left" onClick="displayDialog(2, 'radio-listen-horses2')">> Continue.</a>
-      </div>
-
-      <div class="dialog" id="radio-listen-horses2">
-        Across the fields (now fallow and unfarmed in your father's old age) you witnessed a herd of wild horses file across parallel to the old fence which kept the shoats away from the outside world. Or maybe you imagined it: that evening you had done (in secret) a small amount of psilocybin in order to bear your father's ravings (even more hateful and uninformed than usual, and a little too much to bear, not that you had all that many opinions about anything - the general consensus among your peers was that you weren't the sharpest tool in the shed).<br>
-        When your father died later that night it was a relief, and you brought the shoats in and slept in the barn.<br>
-        <br>
-        <a class="left" onClick="displayDialog(2, 'radio-listen-horses3')">> Continue.</a>
-      </div>
-
-      <div class="dialog" id="radio-listen-horses3">
-        On the train back to the college - and this would be the last time you went back to the college, with your father dying penniless followed by the foreclosure indicating that you had best be moving on (you hadn't felt much anything about this, it just seemed like what had to be done, one of many things that happened to a person) - you had stared out the window and wondered about where the horses had come from and where they were going. Though you hadn't realized it at the time, you would soon be like the wild horses: always going places, full of spirit, living, and what the hills were made of, always moving. Movement.<br>
-        <br>
-        <a class="left" onClick="setOverlay(2, '#020204', {opacity: 0, duration: 6000});
-                                 putChoice('radioListen1', 'horses');
-                                 displayDialog(2, 'radio-listen-wake')">> Continue.</a>
-      </div>
-
-      <div class="dialog" id="radio-listen-wake">
-        You must have nodded off. There's no time for that. You still need to light your fire.<br>
-        <br>
-        <a class="close" onClick="restoreDialog(2)"></a>
-      </div>
-
-      <div class="dialog" id="radio-listen-play">
-
-      </div>
-
-      <div class="dialog" id="radio-listen-surveyor">
-
-      </div>
-
-      <div class="dialog" id="radio-take">
-        No need. It's already yours.<br>
-        <br>
-        <a class="close" onClick="restoreDialog(2)"></a>
-      </div>
-
-      <div id="scene2-text">
-        <div class="largetxt">DEEP DOWN, WE FELT THE CROSSING LONG BEFORE WE SAW THE SIGNS. OUR BLOOD POUNDED IN STEP TO VAST, DARK SEAS.</div>
-        <div class="smalltxt">( Click on objects to inspect them. )</div>
-      </div>
 
       <div class="nav">
-        <a class="prev">&lt;</a>
-        <a class="next">&gt;</a>
+        <a class="prev"></a> <a class="next"></a>
       </div>
+
     </div>
+
   </section>
 
 
   <!--  %%%%%%%%%%%%%%%%%%%%%%%%%%   SCENE 3   %%%%%%%%%%%%%%%%%%%%%%%%%%  -->
-  <!--  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  -->
   <section class="scene" id="scene3" data-panel="3">
-    <canvas id="scene3-fg" width="100" height="100">
-      This page will not work properly as your browser does not support HTML5 Canvas.
-    </canvas>
+
+    <canvas id="scene3-fg" width="100" height="100"></canvas>
 
     <div class="content">
-      <div class="largetxt" id="scene3-text">
-        NEVER BEFORE DID WE FEEL SO CONNECTED TO THE EARTH, AND NEVER AGAIN WILL WE FEEL SO.
-      </div>
-
-      <div class="dialog" id="telephone">
-        A public telephone.<br>
-        <br>
-        <a onClick="displayDialog(3, 'telephone-look')">LOOK</a> |
-        <a onClick="displayDialog(3, 'telephone-listen')">LISTEN</a> |
-        <a onClick="displayDialog(3, 'telephone-dial')">DIAL</a>
-      </div>
-
-      <div class="dialog" id="telephone-look">
-        It's old and a little rusty from disuse. There's a notice stuck to the side: "DIAL 0 FOR ASSISTANCE"<br>
-        <br>
-        <a class="close" onClick="restoreDialog(3)"></a>
-      </div>
-
-      <div class="dialog" id="telephone-listen">
-        It makes a satisfying click when you remove the handset from the cradle. You hear a light drone as you hold the receiver to your ear.<br>
-        <br>
-        <a class="close" onClick="restoreDialog(3)"></a>
-      </div>
-
-      <div class="dialog" id="telephone-dial">
-        Now is the time to dial a number.<br>
-        <br>
-        <a class="left" onClick="displayDialog(3, 'robot')">
-            > THE THERAPY EXPERIMENT
-        </a>
-        <a class="left" onClick="displayDialog(3, 'telephone-dial2')">
-            > 0
-        </a>
-      </div>
-
-      <div class="dialog" id="telephone-dial2">
-        <a class="left" onClick="displayDialog(3, 'telephone-dial2')">
-            > Wait
-        </a>
-      </div>
-
-      <div class="dialog" id="robot">
-        VOICE: Hi. Let's try a breathing exercise. Press 1 if you wanna go on ahead with that. Press 2 if you'd rather try somethin' else.<br>
-        <br>
-        <a class="left" onClick="displayDialog(3, 'robot-breathing'); SURVEYOR.Therapy.again()">
-            > Press 1.
-        </a>
-        <a class="left" onClick="displayDialog(3, 'robot-therapist')">
-            > Press 2.
-        </a>
-        <a class="left" onClick="restoreDialog(3)">
-            > Hang up.
-        </a>
-      </div>
-
-      <div class="dialog" id="robot-breathing">
-        ISLA: Yeah, sure. Why not.<br>
-        VOICE: Good. When I tell you to, I want you to breathe in for a count of four.
-
-        <a class="left ok" onClick="SURVEYOR.Therapy.begin()">> OK.</a><br>
-        <div class="breathingExercise">
-          <span class="in1">VOICE: Now, breathe in for count of
-            one . . .</span><br>
-          <span class="in2">Two . . . </span>
-          <span class="in3">Three . . .</span>
-          <span class="in4">Four . . .</span><br>
-          <span class="hold1">Now hold your breath for a count of
-            one . . .</span><br>
-          <span class="hold2">Two . . . </span>
-          <span class="hold3">Three . . .</span>
-          <span class="hold4">Four . . .</span><br>
-          <span class="hold5">Five . . .</span>
-          <span class="hold6">Six . . .</span>
-          <span class="hold7">Seven . . .</span><br>
-          <span class="out1">Now exhale for a count of
-            one . . .</span><br>
-          <span class="out2">Two . . . </span>
-          <span class="out3">Three . . .</span>
-          <span class="out4">Four . . .</span><br>
-          <span class="out5">Five . . .</span>
-          <span class="out6">Six . . .</span>
-          <span class="out7">Seven . . .</span><br>
-          <span class="out8">Eight . . .</span><br>
-          <br>
-          <a class="left continue" onClick="displayDialog(3, 'robot-breathing2'); SURVEYOR.Therapy.again()">
-              > Continue
-          </a>
-        </div>
-      </div>
-
-      <div class="dialog" id="robot-breathing2">
-        VOICE: Now let's try that again.<br>
-        <a class="left ok" onClick="SURVEYOR.Therapy.begin()">> OK.</a>
-        <div class="breathingExercise">
-          <span class="in1">VOICE: Breathe in for a count of one . . .</span><br>
-          <span class="in2">Two . . . </span>
-          <span class="in3">Three . . .</span>
-          <span class="in4">Four . . .</span><br>
-          <span class="hold1">And hold your breath for a count of one . . .</span><br>
-          <span class="hold2">Two . . . </span>
-          <span class="hold3">Three . . .</span>
-          <span class="hold4">Four . . .</span><br>
-          <span class="hold5">Five . . .</span>
-          <span class="hold6">Six . . .</span>
-          <span class="hold7">Seven . . .</span><br>
-          <span class="out1">Now exhale for a count of one . . .</span><br>
-          <span class="out2">Two . . . </span>
-          <span class="out3">Three . . .</span>
-          <span class="out4">Four . . .</span><br>
-          <span class="out5">Five . . .</span>
-          <span class="out6">Six . . .</span>
-          <span class="out7">Seven . . .</span><br>
-          <span class="out8">Eight . . .</span><br>
-          <br>
-          <a class="left continue" onClick="displayDialog(3, 'robot-breathing3'); SURVEYOR.Therapy.again()">
-              > Continue
-          </a>
-        </div>
-      </div>
-
-      <div class="dialog" id="robot-breathing3">
-        VOICE: OK, now one last time.<br>
-        <a class="left ok" onClick="SURVEYOR.Therapy.begin()">> OK.</a>
-        <div class="breathingExercise">
-          <span class="in1">VOICE: Breathe in for a count of one . . .</span><br>
-          <span class="in2">Two . . . </span>
-          <span class="in3">Three . . .</span>
-          <span class="in4">Four . . .</span><br>
-          <span class="hold1">And hold for a count of one . . .</span><br>
-          <span class="hold2">Two . . . </span>
-          <span class="hold3">Three . . .</span>
-          <span class="hold4">Four . . .</span><br>
-          <span class="hold5">Five . . .</span>
-          <span class="hold6">Six . . .</span>
-          <span class="hold7">Seven . . .</span><br>
-          <span class="out1">Now exhale and relax for a count of one . . .</span><br>
-          <span class="out2">Two . . . </span>
-          <span class="out3">Three . . .</span>
-          <span class="out4">Four . . .</span><br>
-          <span class="out5">Five . . .</span>
-          <span class="out6">Six . . .</span>
-          <span class="out7">Seven . . .</span><br>
-          <span class="out8">Eight . . .</span><br>
-          <span class="afterExercise">VOICE: Do you feel better? Well I hope you feel better now. Any time you feel down, just keep in mind all the people who care about and believe in you. Feel free to call in again sometime.</span><br>
-          <br>
-          <a class="close" onClick="restoreDialog(3)"></a>
-        </div>
-      </div>
-
 
       <div class="nav">
-        <a class="prev">&lt;</a>
-        <a class="next">&gt;</a>
+        <a class="prev"></a> <a class="next"></a>
       </div>
+
     </div>
+
   </section>
+
 
   <!--  %%%%%%%%%%%%%%%%%%%%%%%%%%   SCENE 4   %%%%%%%%%%%%%%%%%%%%%%%%%%  -->
-  <!--  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  -->
   <section class="scene" id="scene4" data-panel="4">
-    <canvas id="scene4-fg" width="100" height="100">
-      This page will not work properly as your browser does not support HTML5 Canvas.
-    </canvas>
+
+    <canvas id="scene4-fg" width="100" height="100"></canvas>
 
     <div class="content">
-      <div class="largetxt">
-        AND THEN IT WAS FINISHED
-      </div>
 
       <div class="nav">
-        <a class="prev">&lt;</a>
-        <a class="next">&gt;</a>
+        <a class="prev"></a> <a class="next"></a>
       </div>
+
     </div>
+
   </section>
 
+
   <!--  %%%%%%%%%%%%%%%%%%%%%%%%%%   SCENE 5   %%%%%%%%%%%%%%%%%%%%%%%%%%  -->
-  <!--  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  -->
   <a name="5"></a>
   <section class="scene" id="scene5" data-panel="5">
-    <canvas id="scene5-fg" width="100" height="100">
-      This page will not work properly as your browser does not support HTML5 Canvas.
-    </canvas>
+
+    <canvas id="scene5-fg" width="100" height="100"></canvas>
     <div class="overlay" id="overlay1"></div>
 
     <div class="content">
-      <div class="largetxt">
-        COMING<br>
-        SOON.<br>
-      </div>
 
       <div class="nav">
-        <a class="prev">&lt;</a>&#8203;
+        <a class="prev"></a>
       </div>
+
     </div>
+
   </section>
 
 
-
+  <!--  %%%%%%%%%%%%%%%%%%%%%%%%%%     Info     %%%%%%%%%%%%%%%%%%%%%%%%%%  -->
   <section id="title">
-    <div>
-      <h2>Surveyor Pilot</h2>
-      <em>2015</em>
+    <h2>Surveyor Pilot</h2>
+    <em>2015</em>
 
-      <div class="links">
-        <a onClick="$('#credits').slideToggle(300);">Credits</a>&emsp;&bull;&emsp;<a href="walkthrough.html" target="_blank">Walkthrough</a>&emsp;&bull;&emsp;<a href="https://github.com/enjmiah/surveyor" target="_blank">GitHub</a>
-      </div>
+    <div class="links">
+      <a onClick="$('#credits').slideToggle(300);">Credits</a>&emsp;&bull;&emsp;<a href="walkthrough.html" target="_blank">Walkthrough</a>&emsp;&bull;&emsp;<a href="https://github.com/enjmiah/surveyor" target="_blank">GitHub</a>
+    </div>
 
-      <div id="credits">
-        <p>
-          Code &amp; art assets by
-          <a href="http://jerryyin.info" target="_blank">Jerry Yin</a>
-        </p>
-        <p>
-          Made with HTML5 Canvas, jQuery (including the
-          <a href="https://github.com/guidobouman/jquery-panelsnap" target="_blank">panelSnap</a>,
-          <a href="https://github.com/customd/jquery-visible" target="_blank">visible</a>,
-          and <a href="https://github.com/jquery/jquery-color" target="_blank">color</a>
-          plugins), and lots of JS magic.
-        </p>
-      </div>
+    <div id="credits">
+      <p>
+        Code &amp; art assets by
+        <a href="http://jerryyin.info" target="_blank">Jerry Yin</a>
+      </p>
+      <p>
+        Made with HTML5 Canvas, jQuery (including the
+        <a href="https://github.com/guidobouman/jquery-panelsnap" target="_blank">panelSnap</a>,
+        and <a href="https://github.com/jquery/jquery-color" target="_blank">color</a>
+        plugins), and lots of JS magic.
+      </p>
     </div>
   </section>
 
-  <script src="js/polyfill.js" type="text/javascript"></script>
-  <script src="js/Surveyor.js" type="text/javascript"></script>
-  <script src="js/DialogManager.js" type="text/javascript"></script>
-  <script src="js/Sprite.js" type="text/javascript"></script>
-  <script src="js/Firefly.js" type="text/javascript"></script>
-  <script src="js/Therapy.js" type="text/javascript"></script>
-  <script src="js/Scene1.js" type="text/javascript"></script>
-  <script src="js/Scene2.js" type="text/javascript"></script>
-  <script src="js/Scene3.js" type="text/javascript"></script>
-  <script src="js/Scene4.js" type="text/javascript"></script>
-  <script src="js/init.js" type="text/javascript"></script>
+
+  <!--  %%%%%%%%%%%%%%%%%%%%%%%%     Scripts     %%%%%%%%%%%%%%%%%%%%%%%%  -->
+  <script src="js/polyfill.js"></script>
+  <script src="js/Surveyor.js"></script>
+  <script src="js/DialogManager.js"></script>
+  <script src="js/Sprite.js"></script>
+  <script src="js/Firefly.js"></script>
+  <script src="js/Therapy.js"></script>
+  <script src="js/Scene1.js"></script>
+  <script src="js/Scene2.js"></script>
+  <script src="js/Scene3.js"></script>
+  <script src="js/Scene4.js"></script>
+  <script src="js/init.js"></script>
 
 </body>
 

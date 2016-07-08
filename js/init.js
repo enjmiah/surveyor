@@ -5,6 +5,10 @@ var scene1 = new SURVEYOR.Scene1(),
     scene4 = new SURVEYOR.Scene4(),
     scenes = [scene1, scene2, scene3, scene4];  //TODO: add all scenes
 
+// Load all the dialogue into the HTML.
+SURVEYOR.DialogManager.loadDialogue();
+
+// Initialize all scenes.
 for (var i = 0, len = scenes.length; i < len; i++)
   scenes[i].init();
 

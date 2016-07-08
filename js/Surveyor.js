@@ -42,11 +42,10 @@ var SURVEYOR = (function() {
     }
   };
 })();
-//SURVEYOR.debug(); // turn Debug mode on
 
 const START_TIME = Date.now(),
       DIR = "assets/",
-      NUM_SCENES = 4; // TODO: update this num
+      NUM_SCENES = 5; // TODO: update this num
 
 
 /**

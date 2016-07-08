@@ -9,30 +9,12 @@ SURVEYOR.DialogManager = (function() {
         SHOW_TEXT_ANIM_DURATION = 1500;
   var animQueue = $({}),
       history = {},
-      sceneStates = {},
-      overlayAnimProgress = {};
+      sceneStates = [],
+      overlayAnimProgress = [];
   for (var i = 1; i <= NUM_SCENES; i++) {
     sceneStates[i] = false;
     overlayAnimProgress[i] = false;
   }
-
-  /**
-   * Stores a dialog choice and refreshes the conditional display.
-   * @param {string} k A key to store a value.
-   * @param {(string|boolean|Object)} v The value to store.
-   */
-  var putChoice = function(k, v) {
-    history[k] = v;
-    refreshConditionalDisplay(k);
-  };
-
-  /**
-   * Retrieves a dialog choice.
-   * @param {string} k The key.
-   */
-  var getChoice = function(k) {
-    return history[k];
-  };
 
   /**
    * Displays a dialog box for the scene specified.
@@ -130,6 +112,14 @@ SURVEYOR.DialogManager = (function() {
   };
 
   /**
+   * Retrieves a dialog choice.
+   * @param {string} k The key.
+   */
+  var getChoice = function(k) {
+    return history[k];
+  };
+
+  /**
    * Makes sure all conditional displays are displaying or hiding properly.
    * @param {string} cl The conditional display class to update. Leave empty to
    *   update all.
@@ -160,6 +150,33 @@ SURVEYOR.DialogManager = (function() {
     }
   };
 
+  /**
+   * Loads all the dialogue from the dialogue directory.
+   */
+  var loadDialogue = function() {
+    for (let i = 1; i <= NUM_SCENES; i++) {
+      $.ajax({
+        url: `dialogue/Scene${i}.html`,
+        success: function(data) {
+          $("#scene" + i + " > .content").prepend(data);
+          console.log("Loaded Scene", i + "'s Dialogue.");
+        },
+        async: false
+      });
+    }
+    refreshConditionalDisplay();
+  };
+
+  /**
+   * Stores a dialog choice and refreshes the conditional display.
+   * @param {string} k A key to store a value.
+   * @param {(string|boolean|Object)} v The value to store.
+   */
+  var putChoice = function(k, v) {
+    history[k] = v;
+    refreshConditionalDisplay(k);
+  };
+
   return {
     putChoice: putChoice,
     getChoice: getChoice,
@@ -167,6 +184,7 @@ SURVEYOR.DialogManager = (function() {
     hideDialog: hideDialog,
     restoreDialog: restoreDialog,
     setOverlay: setOverlay,
-    refreshConditionalDisplay: refreshConditionalDisplay
+    refreshConditionalDisplay: refreshConditionalDisplay,
+    loadDialogue: loadDialogue
   };
 })();
